@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <title>Spring Boot+WebSocket+廣播式</title>
+    <script type="text/javascript">
+        var stompClient = null;
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
+            $('#response').html();
+        }
+        function connect() {
+            // websocket的連線地址，此值等於WebSocketConfig中registry.addEndpoint("/websocket/tracker").withSockJS()設定的地址,
+            //這裡如果是微服務或者遠端,需要全路徑
+            var socket = new SockJS('/websocket/tracker'); //1
+            stompClient = Stomp.over(socket);//2
+            stompClient.connect({}, function(frame) {//3
+                setConnected(true);
+                console.log('開始進行連線Connected: ' + frame);
+                // 使用者端訂閱訊息的目的地址：此值等於WebSocketResource中@SendTo("/topic/getResponse")註解的裡設定的值
+                stompClient.subscribe('/topic/getResponse', function(respnose){ //4
+                    showResponse(respnose.body);
+                });
+            });
+        }
+        function disconnect() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+            }
+            setConnected(false);
+            console.log("Disconnected");
+        }
+        function sendName() {
+            var name = $('#name').val();
+            stompClient.send("/welcome", {}, returnCitySN['cip'] +":"+name);// JSON.stringify(name)
+        }
+        function showResponse(message) {
+            var response = $("#response");
+            response.html(message+"<br>" + response.html());
+        }
+    </script>
+</head>
+<body onload="disconnect()">
+<noscript><h2 style="color: red">貌似你的瀏覽器不支援websocket</h2></noscript>
+<div>
+    <div>
+        <button id="connect" onclick="connect();" style="color: red">連線</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">斷開連線</button>
+    </div>
+    <div id="conversationDiv">
+        <label>輸入內容</label><input type="text" id="name" />
+        <button id="sendName" onclick="sendName();">傳送</button>
+        <p id="response"></p>
+    </div>
+</div>
+</body>
+</html>
