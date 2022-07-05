@@ -29,7 +29,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             cmd = temp.substring(type.length()+1,temp.length());
         switch (type){
             case "OBSServer":
-                ClinetMap.addNewOBSServer(ctx);
+                ClinetMap.addNewOBSServer(ctx,cmd);
                 log.info("OBSServer");
                 break;
             case "controlClient":
