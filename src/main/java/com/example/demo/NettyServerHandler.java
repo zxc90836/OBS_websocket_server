@@ -46,7 +46,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 ctx.write("我是服務端，格式錯誤，無此服務！");
                 break;
         }
-        ctx.write("我是服務端，我收到你的訊息了！");
+        ctx.write("收到訊息了！");
         ctx.flush();
 
     }
