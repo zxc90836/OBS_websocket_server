@@ -1,5 +1,6 @@
 package com.example.demo.youtubeAPI;
 
+import com.alibaba.fastjson.JSON;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.youtube.YouTube;
@@ -10,7 +11,7 @@ import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.*;
 
-public class VoteAPI {
+public class VoteAPI extends Thread{
     private static final String LIVE_CHAT_FIELDS =
             "items(authorDetails(channelId,displayName,isChatModerator,isChatOwner,isChatSponsor,"
                     + "profileImageUrl),snippet(displayMessage,superChatDetails,publishedAt)),"
@@ -18,19 +19,18 @@ public class VoteAPI {
 
     private static YouTube youtube;
 
-    private static Map<String,String> VoteResult;
-
     private static String[] keywords = {"1","2","3"}; //關鍵字
 
     private static String[] voteOptions = {"A","B","C"}; //選項名
 
+    private static VoteResult VoteResult = new VoteResult(voteOptions);
+
     private static long voteTime = 300*1000; //300s * 1000ms/sec
 
     private static InsertLiveChatMessage insertChatMessage;
+
     public static void main(String args[]){
         List<String> scopes = Lists.newArrayList(YouTubeScopes.YOUTUBE_READONLY);
-
-        VoteResult = new HashMap<String,String>();
 
         try {
             // Authorize the request.
@@ -41,9 +41,7 @@ public class VoteAPI {
                     .setApplicationName("youtube-cmdline-listchatmessages-sample").build();
 
             // Get the liveChatId
-            String liveChatId = args.length == 1
-                    ? GetLiveChatId.getLiveChatId(youtube, args[0])
-                    : GetLiveChatId.getLiveChatId(youtube);
+            String liveChatId = GetLiveChatId.getLiveChatId(youtube);
             if (liveChatId != null) {
                 System.out.println("Live chat id: " + liveChatId);
             } else {
@@ -62,7 +60,7 @@ public class VoteAPI {
             }
 
             String voteMessage = "現在開始投票，選項有 " + allVoteOptions +
-                    "請在聊天室打出" + allKeywords + "來投票(注意須完全相同才會計算)，計時5分鐘" + voteTime/1000/60 +"分鐘";
+                    "請在聊天室打出" + allKeywords + "來投票(注意須完全相同才會計算)，計時" + voteTime/1000/60 +"分鐘";
 
             insertChatMessage.InsertLiveChatMessage(liveChatId,voteMessage);
 
@@ -86,8 +84,14 @@ public class VoteAPI {
     private static void listChatMessages(final String liveChatId, final String nextPageToken, long delayMs, long end,String voteMessage) {
         /*System.out.println(
                 String.format("Getting chat messages in %1$.3f seconds...", delayMs * 0.001));*/
-        Timer pollTimer = new Timer();
+        Timer timer = new Timer();
 
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sendVoteResult();
+            }
+        },5000L); //每5秒傳一次結果
 
         while(System.currentTimeMillis() < end){
             try {
@@ -110,8 +114,8 @@ public class VoteAPI {
                             message.getAuthorDetails(),
                             snippet.getSuperChatDetails()));
                     if(snippet.getDisplayMessage().equals(voteMessage)) notInTime = true;
-                    VoteResult = detectVoteResult(liveChatId,keywords, snippet.getDisplayMessage(), message.getAuthorDetails(),
-                            snippet.getSuperChatDetails(),VoteResult,notInTime);
+                    detectVoteResult(liveChatId,keywords, snippet.getDisplayMessage(), message.getAuthorDetails(),
+                            snippet.getSuperChatDetails(),notInTime);
                 }
 
                 Thread.sleep(1000); //設定延遲
@@ -127,6 +131,7 @@ public class VoteAPI {
             }
         }
         insertChatMessage.InsertLiveChatMessage(liveChatId,"投票已結束");
+
         System.exit(0); //直接中斷
     }
 
@@ -166,21 +171,28 @@ public class VoteAPI {
         return output.toString();
     }
 
-    private static Map<String,String> detectVoteResult(final String liveChatId,String[] keywords, String message, LiveChatMessageAuthorDetails author,
-                                         LiveChatSuperChatDetails superChatDetails, Map<String,String> VoteResult,boolean notInTime){
+    private static void detectVoteResult(final String liveChatId,String[] keywords, String message, LiveChatMessageAuthorDetails author,
+                                         LiveChatSuperChatDetails superChatDetails,boolean notInTime){
         for(int i=0;i< keywords.length;i++){
             if(!notInTime){ //在投票時間內
                 if(message.equals(keywords[i])){    //偵測每個投票關鍵字
-                    if(VoteResult.get(author.getDisplayName()) == null){    //是否重複投票
-                        VoteResult.put(author.getDisplayName(), keywords[i]);
-                        System.out.println(author.getDisplayName() + " 投了 " + keywords[i]);
-                        insertChatMessage.InsertLiveChatMessage(liveChatId,author.getDisplayName() + " 投了 " + keywords[i]);
+                    if(VoteResult.getVoteResult().get(author.getDisplayName()) == null){    //是否重複投票
+                        VoteResult.setVoteResult(author.getDisplayName(), voteOptions[i]);
+                        VoteResult.addVoteCount(voteOptions[i],1);
+                        System.out.println(author.getDisplayName() + " 投了 " + voteOptions[i]);
+                        insertChatMessage.InsertLiveChatMessage(liveChatId,author.getDisplayName() + " 投了 " + voteOptions[i]);
                         break;
                     }
                 }
             }
         }
-        return VoteResult;
     }
 
+    public static void sendVoteResult(){
+        System.out.println(JSON.toJSONString(VoteResult));
+    }
+
+    public static void sendEnd(){
+        System.out.println("END");
+    }
 }
