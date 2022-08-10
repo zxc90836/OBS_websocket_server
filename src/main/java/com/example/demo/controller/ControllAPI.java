@@ -36,9 +36,9 @@ public class ControllAPI {
     String index() {
         return "index";
     }
-    @PostMapping("/startVote") //http://127.0.0.1:55304/OBS_websocket/startVote
-    public String startVote(@RequestBody JSONObject voteData){
-        ClinetMap.sendMSGToOBSServer("startVote", JSON.toJSONString(voteData));
+    @PostMapping("/startVote") //http://127.0.0.1:55304/OBS_websocket/startVote?key=
+    public String startVote(@RequestBody JSONObject voteData,@RequestParam(value = "key", defaultValue = "")String key){
+        ClinetMap.sendMSGToOBSServer(key,"startVote "+ JSON.toJSONString(voteData));
         return "start voting";
     }
 }
