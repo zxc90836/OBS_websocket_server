@@ -1,0 +1,19 @@
+.table tbody tr:hover {
+  background-color: gray;
+}
+
+.select-card {
+  transition: ease 0.5s;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.select-card:hover {
+  transform: scale(1.08);
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=pagestyle.css.map */
