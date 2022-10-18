@@ -8,6 +8,10 @@
         $("#addSelectionButton").click(function (e) {
             let votingSelectionTemplate =
                 ' <div class="input-group mb-1">\n' +
+                '   <div class="close_button">\n' +
+                '       <span></span>\n' +
+                '       <span></span>\n' +
+                '   </div>'+
                 '   <span class="input-group-text">選項編號</span>\n' +
                 '   <input id="response'+ i +'" type="text" class="form-control voteName_input">\n' +
                 '   <span class="input-group-text">選項內容</span>\n' +
@@ -15,8 +19,10 @@
                 ' </div>'
             votingSelectionTable.append(votingSelectionTemplate);
             i=i+1;
+            $(".close_button").click(function (e) {
+                e.target.closest('.input-group').remove();
+            });
         });
-
     })
     function showVoteResultPage() {
         var voteResultPage;
