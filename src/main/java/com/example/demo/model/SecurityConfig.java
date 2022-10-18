@@ -10,11 +10,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception{
 
         httpSecurity
-                .antMatcher("/**").authorizeRequests()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
+                .authorizeRequests()
+                .anyRequest().permitAll()
                 .and()
-                .oauth2Login();
+                .csrf().disable().cors();
     }
 
 }

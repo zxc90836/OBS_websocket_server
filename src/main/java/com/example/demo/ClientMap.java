@@ -5,10 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 @Slf4j
-public class ClinetMap {
+public class ClientMap {
     private static Map<String,Object> OBSServerMap = new HashMap<>();
     private static Map<String,String> OBSScenes = new HashMap<>();
     private static Map<Object,String> controlClientMap = new HashMap<>();
@@ -27,21 +26,36 @@ public class ClinetMap {
     public static Object getCtxByRandomKey(String key){
         return OBSServerMap.get(key);
     }
-    public static boolean addNewOBSServer(ChannelHandlerContext ctx,String scenes){
+    public static boolean addNewOBSServer(ChannelHandlerContext ctx,String ytAccount){
         if(OBSServerMap.containsValue(ctx) == false){
-            int randomKey = (int)(Math.random()*9000000)+1000000;
-            String stringValue = Integer.toString(randomKey);
-            while(OBSServerMap.containsKey(stringValue) == true){
-                randomKey = (int)(Math.random()*9000000)+1000000;
-                stringValue = Integer.toString(randomKey);
+            //int randomKey = (int)(Math.random()*9000000)+1000000;
+            //String stringValue = Integer.toString(randomKey);
+            while(OBSServerMap.containsKey(ytAccount) == true){
+//                randomKey = (int)(Math.random()*9000000)+1000000;
+//                stringValue = Integer.toString(randomKey);
+                return false;
             }
-            OBSServerMap.put(stringValue,ctx);
-            OBSScenes.put(stringValue,scenes);
-            ctx.write(stringValue);
+            OBSServerMap.put(ytAccount,ctx);
+            ctx.write("歡迎本地主機："+ytAccount);
             ctx.flush();
             return true;
         }
         return false;
+    }
+    public static boolean addScenes(ChannelHandlerContext ctx,String scenes){
+        String ytAccount = "";
+        for (Map.Entry<String, Object> entry : OBSServerMap.entrySet()) {
+            if(entry.getValue() == ctx){
+                ytAccount = entry.getKey();
+                break;
+            }
+        }
+        if(OBSScenes.containsKey(ytAccount) == true)
+            return false;
+        else{
+            OBSScenes.put(ytAccount,scenes);
+        }
+        return true;
     }
     public static void sendMSGToOBSServer(ChannelHandlerContext ctx,String msg){//用控制端的ctx傳
         ChannelHandlerContext OBSserver = (ChannelHandlerContext)OBSServerMap.get(controlClientMap.get(ctx));

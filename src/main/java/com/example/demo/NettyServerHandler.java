@@ -29,17 +29,17 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             cmd = temp.substring(type.length()+1,temp.length());
         switch (type){
             case "OBSServer":
-                ClinetMap.addNewOBSServer(ctx,cmd);
+                ClientMap.addNewOBSServer(ctx,cmd);
                 log.info("OBSServer");
                 break;
-            case "controlClient":
-                ClinetMap.addNewControlClinet(ctx,cmd);
-                log.info("controlClient");
+            case "addScenes":
+                ClientMap.addScenes(ctx,cmd);
+                log.info("addScenes");
                 break;
             case "OBSServerCmd":
                 break;
             case "controlClientCmd":
-                ClinetMap.sendMSGToOBSServer(ctx,cmd);
+                ClientMap.sendMSGToOBSServer(ctx,cmd);
                 log.info("controlClientCmd");
                 break;
             default:
@@ -57,8 +57,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
-        ClinetMap.removeControlClinet(ctx);
-        ClinetMap.removeOBSServer(ctx);
+        ClientMap.removeControlClinet(ctx);
+        ClientMap.removeOBSServer(ctx);
         log.info("刪除ctx");
         ctx.close();
     }
