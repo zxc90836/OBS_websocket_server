@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.VoteData;
+import com.example.demo.youtubeAPI.VoteAPI;
 import com.example.demo.youtubeAPI.VoteResult;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.java.Log;
@@ -37,7 +38,13 @@ public class ControllAPI {
     @PostMapping(value = "/start_vote") //http://127.0.0.1:55304/OBS_websocket/start_vote
     public String startVote(@RequestBody VoteData voteData){
         log.info(voteData.toString());
-        //ClientMap.sendMSGToOBSServer(key,"startVote "+ JSON.toJSONString(voteData));
+        VoteAPI v = new VoteAPI();
+        v.run(voteData);
         return "voteData";
+    }
+    @GetMapping("/get_voteResult")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+    public VoteResult get_voteResult(){
+        return VoteAPI.getVoteResult();
     }
 }

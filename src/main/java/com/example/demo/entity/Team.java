@@ -9,20 +9,32 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
+
 @ToString
-@Accessors(chain = true)
 @Document(collection = "Team")
 public class Team {
     private String youtubeAccount;
     private String userName;
-    private String password;
-    private Map<String,String> member;
-    private Map<String,String> collaborate;
+    private Map<String,String> member = new HashMap<>();
     public void addMember(String name,String scope){
         member.put(name,scope);
     }
-    public void addCollaborate(String name,String scope){
-        collaborate.put(name,scope);
+    public String getYoutubeAccount() {
+        return youtubeAccount;
+    }
+    public void setYoutubeAccount(String youtubeAccount) {
+        this.youtubeAccount = youtubeAccount;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public Map<String, String> getMember() {
+        return member;
+    }
+    public void setMember(Map<String, String> member) {
+        this.member = member;
     }
 }

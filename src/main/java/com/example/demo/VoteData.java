@@ -44,4 +44,14 @@ public class VoteData {
     public void setLegalResponse(Map<String, String> legalResponse) {
         this.legalResponse = legalResponse;
     }
+
+    @Override
+    public String toString() {
+        return "VoteData{" +
+                "question='" + question + '\'' +
+                ", legalResponse=" + legalResponse +
+                ", timeLimit=" + timeLimit +
+                ", pollAccount='" + pollAccount + '\'' +
+                '}';
+    }
 }

@@ -30,8 +30,8 @@
         let votingInfo = {}; // Object
 
         var sec = parseInt($('#timeLimit').val()) * 60;
-        votingInfo.timeLimit   = sec; // 尚未建立
-        votingInfo.pollAccount = sessionStorage.getItem("user"); // 尚未建立
+        votingInfo.timeLimit   = sec;
+        votingInfo.pollAccount = sessionStorage.getItem("user");
         votingInfo.pollAccount = "user";
         votingInfo.question  = $('#votingQuestion').val();
         votingInfo.legalResponse = new Map;
@@ -41,7 +41,13 @@
             votingInfo.legalResponse.set($('#response' + serial).val(),$('#attr' + serial).val())
             serial++;
         }
+        let obj = {};
+        for(let [k,v] of votingInfo.legalResponse) {
+            obj[k] = v;
+        }
+        votingInfo.legalResponse = obj;
         //pop out from while (Name doesn't exist)TEST321
+        console.log(votingInfo)
         return votingInfo;
     }
 
@@ -53,7 +59,7 @@
             data = JSON.stringify(data);
             console.log(data);
             url = "/OBS_websocket/start_vote";
-            console.log("ddddd:"+url)
+            console.log("cccc:"+url)
             $.ajax({
                 type: "POST",
                 url: url,
