@@ -148,4 +148,26 @@ public class Video {
     public List<Audience> getAudiences() {
         return audiences;
     }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", imgURL='" + imgURL + '\'' +
+                ", likeCount=" + likeCount +
+                ", dislikeCount=" + dislikeCount +
+                ", viewCount=" + viewCount +
+                ", commentCount=" + commentCount +
+                ", tags=" + tags +
+                ", uploadStatus='" + uploadStatus + '\'' +
+                ", geoPoint=" + geoPoint +
+                ", scheduledStartTime=" + scheduledStartTime +
+                ", actualStartTime=" + actualStartTime +
+                ", actualEndTime=" + actualEndTime +
+                ", concurrentViewers=" + concurrentViewers +
+                ", Viewers=" + Viewers +
+                ", audiences=" + audiences +
+                '}';
+    }
 }
