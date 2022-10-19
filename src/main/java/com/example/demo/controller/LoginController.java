@@ -33,8 +33,9 @@ public class LoginController {
         return service.createTeam();
     }
     //回傳可選擇的團隊
-    @GetMapping("/login")//http://127.0.0.1:55304/login?account=owner&password=password
+    @PostMapping("/login")//http://127.0.0.1:55304/login?account=owner&password=password
     //http://127.0.0.1:55304/login?account=colab&password=password2
+    @ResponseBody
     public User login(@RequestBody User request){
         User user = service.login(request.getUserName(),request.getPassword());
         if(user == null){

@@ -83,7 +83,7 @@ public class LoginService {
             newUser.setPassword(password);
             newUser.setUserName(account);
             newUser.setYoutubeAccount(youtubeAccount);
-            newUser.addCollaborate(account,"all");
+            newUser.addCollaborate(youtubeAccount,"all");
             newTeam.setUserName(account);
             newTeam.setYoutubeAccount(youtubeAccount);
             newTeam.addMember(account,"all");
@@ -106,8 +106,5 @@ public class LoginService {
         log.info("null--------------------");
         return null;
     }
-    public static void main(String[] args) {
-        LoginService l = new LoginService();
-        l.createTeam();
-    }
+
 }

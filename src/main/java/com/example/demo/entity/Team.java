@@ -16,6 +16,7 @@ public class Team {
     private String youtubeAccount;
     private String userName;
     private Map<String,String> member = new HashMap<>();
+    private Schedule schedule;
     public void addMember(String name,String scope){
         member.put(name,scope);
     }

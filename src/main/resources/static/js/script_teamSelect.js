@@ -3,9 +3,9 @@
 
     //jquery 點擊團隊模板
     $(document).ready(function (){
-        var user = sessionStorage.getItem("user");
-        console.log(user);
-        var url = "http://127.0.0.1:55304/getColab?account="+user
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        console.log(user.userName);
+        var url = "http://127.0.0.1:55304/getColab?account="+user.userName
         $.getJSON(url,function (data){
             console.log(data);
             $(".teams_container").empty();
