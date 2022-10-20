@@ -11,6 +11,7 @@
             $(".page1").css("display","none")
             $(".page2").css("display","none")
             $(".page3").css("display","none")
+            $(".page4").css("display","none")
             //console.log(e.target.id);
 
             $("." + e.target.id).css("display","")

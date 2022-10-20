@@ -1,73 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>測試用</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!--    C3.js的CSS-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/pagestyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- Load c3.css -->
+    <link href="../css/c3.css" rel="stylesheet">
+
+    <!-- Load d3.js and c3.js -->
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <script src="../js/c3.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.js"></script> <!--引入jquery函式庫-->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
 </head>
 <body>
+<!--<iframe width="1900" height="945" src="https://www.youtube.com/embed/zQuFRSi5ebc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
 
-<div class="mt-3 container page1">
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../picture/img3.png" alt="Avatar Logo" style="width:120px;" class="rounded-pill">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar"><!---->
 
-    <div class="personal_info_body row">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item page-button">
+                    <a class="nav-link" href="javascript:void(0)" id="page1">直播工具頁面</a>
+                </li>
+                <li class="nav-item page-button">
+                    <a class="nav-link" href="javascript:void(0)" id="page2">團隊協作</a>
+                </li>
+                <li class="nav-item page-button">
+                    <a class="nav-link" href="javascript:void(0)" id="page3">團隊數據</a>
+                </li>
+                <li class="nav-item page-button">
+                    <a class="nav-link" href="javascript:void(0)" id="page4">管理工具</a>
+                </li>
+            </ul>
+            <a class="navbar-brand" href="#">
+                <img src="../picture/people.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+                00857004@mail.ntou.edu.tw
+            </a>
+            <button type="button" onclick="sign_out()" class="btn btn-primary vote-result">登出</button>
+        </div>
+    </div>
+</nav>
+
+<div class="mt-3 container-fluid page1" style="display: none">
+
+    <div class="main_container">
+        <!--                                                          !!!!注意這段，如果抓的到影片代碼即可抓直播          -->
+        <iframe class="stream_displayBox" height="800" src="https://www.youtube.com/embed/JpJM9GCoUX4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <div class="row p-1 stream_toolBox bg-light">
+            <div class="p-3 text-dark">
+                <h1>控制OBS頁面</h1>
+            </div>
+            <div class="">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="justify-content-center">場景切換</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="sceneList list-group ">
+                    <a href="#" class="list-group-item list-group-item-action">skr</a>
+                    <a href="#" class="list-group-item list-group-item-action">test1</a>
+                    <a href="#" class="list-group-item list-group-item-action">場景1</a>
+                </div>
+
+            </div>
+            <div class="mt-2 p-2 text-dark">
+                <h1>直播工具</h1>
+            </div>
+            <div class="pb-3">
+
+                <button type="button" onclick="showVotePage()" class="btn btn-primary vote-result">發起投票</button>
+                <button type="button" onclick="showVoteResultPage()" class="btn btn-primary vote-result">點我看投票結果</button>
+            </div>
+        </div>
+        <div class="chatroom">
+
+            <div class="chatroom_header">
+                <span>聊天室</span>
+            </div>
+            <span class=""></span>
+            <div class="chatroom_body">
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment1_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment2_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment3_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment4_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment5_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment6_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment7_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="comments">
+                    <img src="../picture/people.png" alt="Avatar Logo" style="width:25px;" class="rounded-pill">
+
+                    <div class="comments_text">
+                        <span class="comments_time">11:36 PM</span>
+                        <span class="comments_name">Agent1679</span>
+                        you should paint Micheal baki style
+                    </div>
+                    <div id="comment8_channelID" class="edit_button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--  publisher input  -->
+            <div class="chatroom_footer">
+
+            </div>
+            <div class="chatroom_header">
+            </div>
+        </div>
+    </div>
+    <div class="chat-manager-list " style="display: none">
+        <p>刪除留言</p>
+        <p>禁言</p>
+        <p>晉升為管理員</p>
+    </div>
+</div>
+<div class="mt-3 container-fluid page2" style="display: none">
+    <div class="collaborator_info_body row">
         <!--    左邊    -->
         <div class="col-4">
             <div class=" left">
-                <img src="../picture/people.png">
-                <div class="account_info">
-                    <p>account:</p>
-                    <p>password:</p>
+                <div class="collaborator_list">
+                    <div class="collaborator_room">
+
+                        <div class="collaboratorRoom_header" style="">
+                            <span>協作者名單</span>
+                            <button type="button" class="btn btn-primary click-to-revise">點擊修改權限</button>
+                            <button type="button" class="btn btn-primary check-to-revise" style="display: none">確定修改權限</button>
+                        </div>
+                        <span class=""></span>
+                        <div class="collaboratorRoom_body">
+                            <div class="collaborator">
+                                <img src="../picture/people.png" class="channel-icon" alt="">
+                                <div class="info">
+                                    <h4 class="name">00857004@ntou.edu.tw</h4>
+                                    <span class="authority">遠端控制</span><span class="authority">數據分析</span><span class="authority">團隊管理</span>
+                                </div>
+                                <div id="collaborator1_channelID" class="edit_button_collaborator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="collaborator">
+                                <img src="../picture/people.png" class="channel-icon" alt="">
+                                <div class="info">
+                                    <h4 class="name">00857027@ntou.edu.tw</h4>
+                                    <span class="authority">遠端控制</span><span class="authority">數據分析</span><span class="authority">團隊管理</span>
+                                </div>
+                                <div id="collaborator2_channelID" class="edit_button_collaborator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="collaborator">
+                                <img src="../picture/people.png" class="channel-icon" alt="">
+                                <div class="info">
+                                    <h4 class="name">00857041@ntou.edu.tw</h4>
+                                    <span class="authority">遠端控制</span><span class="authority">數據分析</span><span class="authority">團隊管理</span>
+                                </div>
+                                <div id="collaborator3_channelID" class="edit_button_collaborator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="collaborator">
+                                <img src="../picture/people.png" class="channel-icon" alt="">
+                                <div class="info">
+                                    <h4 class="name">00857004@ntou.edu.tw</h4>
+                                    <span class="authority">遠端控制</span><span class="authority">數據分析</span><span class="authority">團隊管理</span>
+                                </div>
+                                <div id="collaborator4_channelID" class="edit_button_collaborator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--  publisher input  -->
+                        <div class="collaboratorRoom_footer">
+                            <div class="invite_input">
+                                <div class="input-group">
+                                    <span class="input-group-text">協作者</span>
+                                    <input type="text" class="form-control" placeholder="帳號">
+                                    <button type="button" onclick="send_invitation()" class="btn btn-primary vote-result">加入</button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="notification_info">
                     <table>
+                        <thead>
+                        <tr>
+                            <th colspan=2 style="text-align: center;position : sticky;top:0;background-color: #f1f1f1;">今日活動</th>
+                        </tr>
+                        </thead>
                         <tbody>
                         <tr>
-                            <th>通知</th>
-                            <th>期限</th>
-                        </tr>
-                        <tr>
                             <td>工商會議</td>
-                            <td>1天後</td>
+                            <td>9 a.m.</td>
                         </tr>
                         <tr>
-                            <td>直播日</td>
-                            <td>3天後</td>
+                            <td>直播</td>
+                            <td>7 p.m.</td>
                         </tr>
                         <tr>
-                            <td>腳本繳交</td>
-                            <td>6天後</td>
-                        </tr>
-                        <tr>
-                            <td>直播日</td>
-                            <td>3天後</td>
-                        </tr>
-                        <tr>
-                            <td>腳本繳交</td>
-                            <td>6天後</td>
-                        </tr>
-                        <tr>
-                            <td>直播日</td>
-                            <td>3天後</td>
-                        </tr>
-                        <tr>
-                            <td>腳本繳交</td>
-                            <td>6天後</td>
-                        </tr>
-                        <tr>
-                            <td>直播日</td>
-                            <td>3天後</td>
-                        </tr>
-                        <tr>
-                            <td>腳本繳交</td>
-                            <td>6天後</td>
+                            <td>檢討會</td>
+                            <td>11 p.m.</td>
                         </tr>
                         </tbody>
                     </table>
@@ -77,85 +333,424 @@
         <!--    右邊    -->
         <div class="col-8 ">
             <div class="right">
-                <h1>吳小四的個人介面</h1>
+                <h1 style="text-align: center">團隊行事曆-十月</h1>
                 <div class="calendar">
                     <table>
                         <thead>
-                            <tr>
-                                <th>一</th>
-                                <th>二</th>
-                                <th>三</th>
-                                <th>四</th>
-                                <th>五</th>
-                                <th>六</th>
-                                <th>日</th>
-                            </tr>
+                        <tr>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                            <th>日</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>1</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                                <td>15</td>
-                                <td>16</td>
-                            </tr>
-                            <tr>
-                                <td>17</td>
-                                <td>18</td>
-                                <td>19</td>
-                                <td>20</td>
-                                <td>21</td>
-                                <td>22</td>
-                                <td>23</td>
-                            </tr>
-                            <tr>
-                                <td>24</td>
-                                <td>25</td>
-                                <td>26</td>
-                                <td>27</td>
-                                <td>28</td>
-                                <td>29</td>
-                                <td>30</td>
-                            </tr>
-                            <tr>
-                                <td>31</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>1
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>2
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>4
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>5
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>6
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>7
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>8
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>9
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>11
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>12
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>13
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>14
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>15
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>16
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>17
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>18
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>19
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>20
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>21
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>22
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>23
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>24
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>25
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>26
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>27
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>28
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>29
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>30
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>31
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="calendar_add_btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    <div class="collaborator-manager-list " style="display: none">
+        <p>踢出協作者</p>
+    </div>
+    <div class="collaborator-calendar-list " style="display: none">
+        <p>新增</p>
+        <p>修改</p>
+        <p>刪除</p>
+    </div>
+    <div class="card center" style="display: none">
+
+    </div>
+    <div class="black_background" style="display: none">
+
+    </div>
+    <div class="white_background" style="display: none">
+
+    </div>
+</div>
+<div class="mt-3 container-fluid page3" style="display: none">
+    <div class="row justify-content-center">
+        <div class="col-8 mt-4 p-3 bg-light text-dark">
+            <h1>近期直播資訊</h1>
+        </div>
+        <div class="col-8">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-2 justify-content-center">直播名稱</th>
+                    <th class="col-2 justify-content-center">觀看數</th>
+                    <th class="col-2 justify-content-center">總留言數</th>
+                    <th class="col-2 justify-content-center">喜歡人數</th>
+                    <th class="col-2 justify-content-center">不喜歡人數</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-2 justify-content-center">APEX身法訓練營</td>
+                    <td class="col-2 justify-content-center">112</td>
+                    <td class="col-2 justify-content-center">3</td>
+                    <td class="col-2 justify-content-center">16</td>
+                    <td class="col-2 justify-content-center">0</td>
+                </tr>
+                <tr>
+                    <td class="col-2 justify-content-center">英雄聯盟(9點抽聯盟幣</td>
+                    <td class="col-2 justify-content-center">206</td>
+                    <td class="col-2 justify-content-center">29</td>
+                    <td class="col-2 justify-content-center">43</td>
+                    <td class="col-2 justify-content-center">1</td>
+                </tr>
+                <tr>
+                    <td class="col-2 justify-content-center">好久沒玩狼人殺了</td>
+                    <td class="col-2 justify-content-center">89</td>
+                    <td class="col-2 justify-content-center">3</td>
+                    <td class="col-2 justify-content-center">9</td>
+                    <td class="col-2 justify-content-center">0</td>
+                </tr>
+                <tr>
+                    <td class="col-2 justify-content-center">隨興打LOL(觀眾場</td>
+                    <td class="col-2 justify-content-center">120</td>
+                    <td class="col-2 justify-content-center">11</td>
+                    <td class="col-2 justify-content-center">23</td>
+                    <td class="col-2 justify-content-center">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class=" col-8">
+            <div id="chart"></div>
+        </div>
+    </div>
 
 </div>
+<div class="mt-3 container-fluid page4">
 
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var chart = c3.generate({
+        bindto: '#chart',
+        data: {
+            columns: [
+                ['data1', 30, 200, 100, 400, 150, 250],
+                ['data2', 50, 20, 10, 40, 15, 25]
+            ]
+        }
+    });
+</script>
+<script type="module" src="../js/script_chat.js"></script>
+<script type="text/javascript" src="../js/script_collaboratorPage.js"></script>
 <script type="text/javascript" src="../js/script_index.js"></script>
+<script type="text/javascript" src="../js/script_vote.js"></script>
+
 </body>
 </html>
