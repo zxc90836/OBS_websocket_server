@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 public class getVideoInfo {
@@ -87,9 +88,27 @@ public class getVideoInfo {
             video.setLikeCount(likeCount);
             video.setViewCount(viewCount);
             video.setConcurrentViewers(concurrentViewers);
-            video.setActualStartTime(actualStartTime);
-            video.setScheduledStartTime(scheduledStartTime);
-            video.setActualEndTime(actualEndTime);
+            if(actualStartTime!=null){
+                Date d = new Date();
+                d.setTime(actualStartTime.getValue());
+                video.setActualStartTime(d);
+            }
+            else
+                video.setActualStartTime(null);
+            if(scheduledStartTime!=null){
+                Date d = new Date();
+                d.setTime(scheduledStartTime.getValue());
+                video.setScheduledStartTime(d);
+            }
+            else
+                video.setActualStartTime(null);
+            if(actualEndTime!=null){
+                Date d = new Date();
+                d.setTime(actualEndTime.getValue());
+                video.setActualEndTime(d);
+            }
+            else
+                video.setActualStartTime(null);
 
         } catch (GoogleJsonResponseException e) {
             System.err

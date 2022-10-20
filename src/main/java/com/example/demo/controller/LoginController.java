@@ -5,7 +5,7 @@ import com.example.demo.entity.SignUpData;
 import com.example.demo.entity.Team;
 import com.example.demo.entity.User;
 import com.example.demo.service.LoginService;
-import com.example.demo.youtubeAPI.Video;
+import com.example.demo.youtubeAPI.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.util.Map;
 
@@ -53,6 +54,59 @@ public class LoginController {
     public Map<String,String> getColab(@RequestParam(value = "account", defaultValue = "")String account){
         return service.getColab(account);
     }
+
+    @GetMapping("/get_streamingChat")//http://127.0.0.1:55304/Youtube_API/get_streamingChat
+    //http://140.121.196.20:55304/Youtube_API/get_streamingChat
+    public String getStreamingChat(){
+        return service.getLiveChatMessage();
+    }
+
+    @GetMapping("/get_SC")//http://127.0.0.1:55304/Youtube_API/get_SC
+    //http://140.121.196.20:55304/Youtube_API/get_SC
+    public String getSC(){
+        return service.getSCDetail();
+    }
+
+    @GetMapping("/get_relatedVideo")//http://127.0.0.1:55304/Youtube_API/get_relatedVideo?key=YL471T6LkMA
+    //http://140.121.196.20:55304/Youtube_API/get_relatedVideo?key=YL471T6LkMA
+    public String getRelatedVideo(@RequestParam(value = "key", defaultValue = "") String key){
+        return service.getRelatedVideo(key);
+    }
+
+    @GetMapping("/get_videoHistory")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    //http://140.121.196.20:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    public String getVideoHistory(@RequestParam(value = "id", defaultValue = "") String id,
+                                  @RequestParam(value = "start", defaultValue = "") String start,
+                                  @RequestParam(value = "end", defaultValue = "") String end){
+        return service.getVideoHistory(id,start,end);
+    }
+
+    @GetMapping("/get_channelHistory")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    //http://140.121.196.20:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    public String getChannelHistory(@RequestParam(value = "start", defaultValue = "") String start,
+                                    @RequestParam(value = "end", defaultValue = "") String end){
+        return service.getChannelHistory(start,end);
+    }
+
+    @PostMapping(value = "/add_LiveChatModerators")//http://127.0.0.1:55304/Youtube_API/addLiveChatModerators?id=
+    //http://140.121.196.20:55304/Youtube_API/addLiveChatModerators?id=
+    public String addLiveChatModerators(@RequestParam(value = "id", defaultValue = "") String id){
+        return service.addLiveChatModerators(id);
+    }
+
+    @PostMapping(value = "/ban_LiveChatUser")//http://127.0.0.1:55304/Youtube_API/banLiveChatUser?id=
+    //http://140.121.196.20:55304/Youtube_API/banLiveChatUser?id=
+    public String banLiveChatUser(@RequestParam(value = "id", defaultValue = "") String id,
+                                  @RequestParam(value = "time", defaultValue = "") BigInteger time){
+        return service.banLiveChatUser(id,time);
+    }
+
+    @PostMapping(value = "/delete_LiveChatMessage")//http://127.0.0.1:55304/Youtube_API/deleteLiveChatMessage?id=
+    //http://140.121.196.20:55304/Youtube_API/deleteLiveChatMessage?id=
+    public String deleteLiveChatMessage(@RequestParam(value = "id", defaultValue = "") String id){
+        return service.deleteLiveChatMessage(id);
+    }
+
     @GetMapping("/get_video")//http://127.0.0.1:55304/Youtube_API/get_video?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
     public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
@@ -62,5 +116,11 @@ public class LoginController {
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public String getMyVideos(){
         return service.getAllVideoData();
+    }
+
+    @GetMapping("/get_comments")//http://127.0.0.1:55304/Youtube_API/get_myVideos
+    //http://140.121.196.20:55304/Youtube_API/get_myVideos
+    public String getComments(@RequestParam(value = "key", defaultValue = "") String key){
+        return service.getComment(key);
     }
 }

@@ -3,9 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.Team;
 import com.example.demo.entity.User;
 import com.example.demo.repository.LoginRepository;
-import com.example.demo.youtubeAPI.GetAllVideos;
-import com.example.demo.youtubeAPI.Video;
-import com.example.demo.youtubeAPI.getVideoInfo;
+import com.example.demo.youtubeAPI.*;
 import com.google.api.services.youtube.model.PlaylistItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -99,7 +98,6 @@ public class LoginService {
             return result;
         }
         return null;
-
     }
     public Map<String,String> getColab(String account){
         Query query = new Query(Criteria.where("userName").is(account));
@@ -136,14 +134,53 @@ public class LoginService {
         while (playlistEntries.hasNext()){
             PlaylistItem playlistItem = playlistEntries.next();
             Query query = new Query(Criteria.where("id").is(playlistItem.getContentDetails().getVideoId()));
-            //Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
-            if(true){
+            Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+            if(result == null){
                 Video newVideo = getVideoInfo.getVideoInfo(playlistItem.getContentDetails().getVideoId());
                 mongoTemplate.save(newVideo);
-                //result = mongoTemplate.findOne(query, Video.class, VideoCollection);
-                //if(result == null) return null;
+                result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+                if(result == null) return null;
             }
         }
-        return "success";
+        return myVideos.toString();
     }
+    public String getComment(String id){
+        log.info("get comments--------------------" + id);
+        return GetComment.getComment(id).toString();
+    }
+
+    public String getLiveChatMessage(){
+        log.info("get liveChatMessage--------------------");
+        return GetLiveChatOnce.getLiveChatOnce();
+    }
+
+    public String getSCDetail(){
+        log.info("get SCDetail--------------------");
+        return GetSCDetails.getSCDetails();
+    }
+    public String getRelatedVideo(String id){
+        log.info("get relatedVideo--------------------");
+        return GetRelatedVideo.getRelatedVideo(id);
+    }
+    public String getVideoHistory(String id,String start,String end){
+        log.info("get videoHistory--------------------");
+        return GetVideoHistoryInfo.getVideoHistoryInfo(id,start,end);
+    }
+    public String getChannelHistory(String start,String end){
+        log.info("get channelHistory--------------------");
+        return GetVideoHistoryInfo.getVideoHistoryInfo(start,end);
+    }
+    public String addLiveChatModerators(String id){
+        log.info("get liveChatModerators--------------------");
+        return AddLiveChatModerators.addLiveChatModerators(id);
+    }
+    public String banLiveChatUser(String id, BigInteger time){
+        log.info("ban LiveChatUser--------------------");
+        return BanLiveChatUser.banLiveChatUser(id,time);
+    }
+    public String deleteLiveChatMessage(String id){
+        log.info("delete LiveChatMessage--------------------");
+        return DeleteLiveChatMessage.deleteLiveChatMessage(id);
+    }
+
 }

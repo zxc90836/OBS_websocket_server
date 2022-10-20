@@ -126,4 +126,8 @@ public class GetAllVideos {
             System.out.println("\n-------------------------------------------------------------\n");
         }
     }
+
+    public static List<PlaylistItem> getMyVideo() {
+        return myVideo;
+    }
 }

@@ -38,7 +38,7 @@ public class GetComment {
 
     private static List<Comment> comment = new ArrayList<>();
 
-    public static String getComment(String videoId) {
+    public static List<Comment> getComment(String videoId) {
 
         // This OAuth 2.0 access scope allows for full read/write access to the
         // authenticated user's account and requires requests to use an SSL connection.
@@ -71,8 +71,15 @@ public class GetComment {
                     System.out
                             .println("\n-------------------------------------------------------------\n");
                     c.setVideoId(videoId);
-                    c.setAuthor( snippet.getAuthorDisplayName());
+                    c.setAuthorName(snippet.getAuthorDisplayName());
+                    c.setAuthorId(snippet.getAuthorChannelId().toString());
+                    c.setLikeCount(snippet.getLikeCount());
                     c.setComment(snippet.getTextDisplay());
+                    YouTube.Channels.List request = youtube.channels()
+                            .list("snippet,contentDetails,statistics");
+                    c.setAuthorImg(request.setId(snippet.getAuthorChannelId().toString()).execute().getItems().get(0).getSnippet().getThumbnails().getHigh().getUrl());
+
+                    c.setPublishAt(snippet.getUpdatedAt());
                     comment.add(c);
                 }
             }
@@ -88,7 +95,7 @@ public class GetComment {
             System.err.println("Throwable: " + t.getMessage());
             t.printStackTrace();
         }
-        return comment.toString();
+        return comment;
     }
 
 }
