@@ -5,6 +5,7 @@ import com.example.demo.entity.SignUpData;
 import com.example.demo.entity.Team;
 import com.example.demo.entity.User;
 import com.example.demo.service.LoginService;
+import com.example.demo.youtubeAPI.Video;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -51,5 +52,15 @@ public class LoginController {
     @GetMapping("/getColab")//http://127.0.0.1:55304/getColab?account=owner
     public Map<String,String> getColab(@RequestParam(value = "account", defaultValue = "")String account){
         return service.getColab(account);
+    }
+    @GetMapping("/get_video")//http://127.0.0.1:55304/Youtube_API/get_video?key=YL471T6LkMA
+    //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
+    public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
+        return service.getVideoData(key);
+    }
+    @GetMapping("/get_myVideos")//http://127.0.0.1:55304/Youtube_API/get_myVideos
+    //http://140.121.196.20:55304/Youtube_API/get_myVideos
+    public String getMyVideos(){
+        return service.getAllVideoData();
     }
 }

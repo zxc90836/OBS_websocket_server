@@ -25,38 +25,10 @@ import java.util.Map;
 @Service
 public class YoutubeDataService {
 
-    private static final String VideoCollection= "VideosData";
-    @Autowired
-    private MongoTemplate mongoTemplate;
-    public Video getVideoData(String id){
-        log.info("get videos--------------------" + id);
-        Query query = new Query(Criteria.where("id").is(id));
-        Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
-        if(result == null){
-            Video newVideo = getVideoInfo.getVideoInfo(id);
-            mongoTemplate.save(newVideo);
-            result = mongoTemplate.findOne(query, Video.class, VideoCollection);
-            return result;
-        }
-        return null;
-    }
-    public String getAllVideoData(){
-        log.info("get all my videos--------------------");
-        List<PlaylistItem> myVideos = GetAllVideos.getAllVideos();
-        for(int i=0;i<myVideos.size();i++){
-            Query query = new Query(Criteria.where("id").is(myVideos.get(i).getId()));
-            //Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
-            if(true){
-                Video newVideo = getVideoInfo.getVideoInfo(myVideos.get(i).getId());
-                mongoTemplate.save(newVideo);
-                //result = mongoTemplate.findOne(query, Video.class, VideoCollection);
-                //if(result == null) return null;
-            }
-        }
-        return "success";
-    }
+
     public static void main(String[] args) {
         LoginService l = new LoginService();
         l.createTeam();
     }
+
 }

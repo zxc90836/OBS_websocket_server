@@ -3,6 +3,10 @@ package com.example.demo.service;
 import com.example.demo.entity.Team;
 import com.example.demo.entity.User;
 import com.example.demo.repository.LoginRepository;
+import com.example.demo.youtubeAPI.GetAllVideos;
+import com.example.demo.youtubeAPI.Video;
+import com.example.demo.youtubeAPI.getVideoInfo;
+import com.google.api.services.youtube.model.PlaylistItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +28,7 @@ public class LoginService {
 
     private static final String COLLECTION_NAME = "Team";
     private static final String userCollection= "User";
+    private static final String VideoCollection= "VideosData";
     @Resource
     MongoTemplate mongoTemplate;
     //LoginRepository repository;
@@ -109,5 +115,35 @@ public class LoginService {
     public static void main(String[] args) {
         LoginService l = new LoginService();
         l.createTeam();
+    }
+    public Video getVideoData(String id){
+        log.info("get videos--------------------" + id);
+        Query query = new Query(Criteria.where("id").is(id));
+        Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+        if(result == null){
+            Video newVideo = getVideoInfo.getVideoInfo(id);
+            mongoTemplate.save(newVideo);
+            result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+            return result;
+        }
+        return null;
+    }
+    public String getAllVideoData(){
+        log.info("get all my videos--------------------");
+        List<PlaylistItem> myVideos = GetAllVideos.getAllVideos();
+
+        Iterator<PlaylistItem> playlistEntries = myVideos.iterator();
+        while (playlistEntries.hasNext()){
+            PlaylistItem playlistItem = playlistEntries.next();
+            Query query = new Query(Criteria.where("id").is(playlistItem.getContentDetails().getVideoId()));
+            //Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+            if(true){
+                Video newVideo = getVideoInfo.getVideoInfo(playlistItem.getContentDetails().getVideoId());
+                mongoTemplate.save(newVideo);
+                //result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+                //if(result == null) return null;
+            }
+        }
+        return "success";
     }
 }

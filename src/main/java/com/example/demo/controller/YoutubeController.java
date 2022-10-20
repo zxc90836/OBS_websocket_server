@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.VoteData;
+import com.example.demo.service.LoginService;
 import com.example.demo.service.YoutubeDataService;
 import com.example.demo.youtubeAPI.*;
 import io.netty.channel.ChannelHandlerContext;
@@ -25,18 +26,10 @@ import java.math.BigInteger;
 //http://180.177.24.44:55304/Youtube_API
 public class YoutubeController {
 
-    private YoutubeDataService service = new YoutubeDataService();
-    @GetMapping("/get_myVideos")//http://127.0.0.1:55304/Youtube_API/get_myVideos
-    //http://140.121.196.20:55304/Youtube_API/get_myVideos
-    public String getMyVideos(){
-        return service.getAllVideoData();
-    }
+    private LoginService service = new LoginService();
 
-    @GetMapping("/get_video")//http://127.0.0.1:55304/Youtube_API/get_video?key=YL471T6LkMA
-    //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
-    public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
-        return service.getVideoData(key);
-    }
+
+
     @GetMapping("/get_comment")//http://127.0.0.1:55304/Youtube_API/get_comment?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_comment?key=YL471T6LkMA
     public String getComment(@RequestParam(value = "key", defaultValue = "") String key){
