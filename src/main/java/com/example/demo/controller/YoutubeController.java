@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.VoteData;
+import com.example.demo.service.YoutubeDataService;
 import com.example.demo.youtubeAPI.*;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.java.Log;
@@ -24,16 +25,17 @@ import java.math.BigInteger;
 //http://180.177.24.44:55304/Youtube_API
 public class YoutubeController {
 
+    private static YoutubeDataService service = new YoutubeDataService();
     @GetMapping("/get_myVideos")//http://127.0.0.1:55304/Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public String getMyVideos(){
-        return GetAllVideos.getAllVideos();
+        return service.getAllVideoData();
     }
 
     @GetMapping("/get_video")//http://127.0.0.1:55304/Youtube_API/get_video?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
-    public String getVideo(@RequestParam(value = "key", defaultValue = "") String key){
-        return getVideoInfo.getVideoInfo(key).toString();
+    public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
+        return service.getVideoData(key);
     }
     @GetMapping("/get_comment")//http://127.0.0.1:55304/Youtube_API/get_comment?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_comment?key=YL471T6LkMA
@@ -59,7 +61,7 @@ public class YoutubeController {
         return getRelatedVideo(key);
     }
 
-    @GetMapping("/get_relatedVideo")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    @GetMapping("/get_videoHistory")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
     public String getVideoHistory(@RequestParam(value = "id", defaultValue = "") String id,
                                   @RequestParam(value = "start", defaultValue = "") String start,
@@ -67,7 +69,7 @@ public class YoutubeController {
         return GetVideoHistoryInfo.getVideoHistoryInfo(id,start,end);
     }
 
-    @GetMapping("/get_relatedVideo")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    @GetMapping("/get_channelHistory")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
     public String getChannelHistory(@RequestParam(value = "start", defaultValue = "") String start,
                                     @RequestParam(value = "end", defaultValue = "") String end){

@@ -2,12 +2,15 @@ package com.example.demo.youtubeAPI;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.model.GeoPoint;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
+@Document(collection = "VideosData")
 public class Video {
+    private String id;
     private String title;
     private String description;
     private String imgURL;
@@ -24,6 +27,18 @@ public class Video {
     private BigInteger concurrentViewers;
     private Map<DateTime,BigInteger> Viewers;
     private List<Audience> audiences;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public BigInteger getConcurrentViewers() {
+        return concurrentViewers;
+    }
 
     public void setConcurrentViewers(BigInteger concurrentViewers) {
         this.concurrentViewers = concurrentViewers;
@@ -152,7 +167,8 @@ public class Video {
     @Override
     public String toString() {
         return "Video{" +
-                "title='" + title + '\'' +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", imgURL='" + imgURL + '\'' +
                 ", likeCount=" + likeCount +

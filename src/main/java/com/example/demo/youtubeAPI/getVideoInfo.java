@@ -18,7 +18,7 @@ public class getVideoInfo {
      * to make YouTube Data API requests.
      */
     private static YouTube youtube;
-    private static Video video;
+    private static Video video = new Video();
 
     public static Video getVideoInfo(String videoID) {
 
@@ -37,7 +37,6 @@ public class getVideoInfo {
                     .list("snippet,liveStreamingDetails,statistics,status,recordingDetails");
             VideoListResponse response = request6.setId(videoID).execute();
             //System.out.println(response);
-
             List<String> tags = response.getItems().get(0).getSnippet().getTags(); //tags
             String description = response.getItems().get(0).getSnippet().getDescription(); //說明欄
             String uploadStatus = response.getItems().get(0).getStatus().getPrivacyStatus(); //影片權限
@@ -75,6 +74,8 @@ public class getVideoInfo {
             System.out.println("實際開始時間:" + actualStartTime);
             System.out.println("表定開始時間:" + scheduledStartTime);
             System.out.println("實際結束時間:" + actualEndTime);
+
+            video.setId(videoID);
             video.setTags(tags);
             video.setDescription(description);
             video.setUploadStatus(uploadStatus);
