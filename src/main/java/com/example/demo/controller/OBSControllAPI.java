@@ -1,18 +1,10 @@
 package com.example.demo.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.VoteData;
 import com.example.demo.youtubeAPI.VoteAPI;
 import com.example.demo.youtubeAPI.VoteResult;
-import io.netty.channel.ChannelHandlerContext;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.ui.Model;
 import com.example.demo.ClientMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/OBS_websocket")//http://127.0.0.1:55304/OBS_websocket/change_scene?scene=場景"
 //http://180.177.24.44:55304/OBS_websocket
-public class ControllAPI {
+public class OBSControllAPI {
     @GetMapping("/change_scene")//http://127.0.0.1:55304/OBS_websocket/change_scene?key=&scene=場景"
     //http://140.121.196.20:55304/OBS_websocket/change_scene?key=&scene=場景
     public String changeScene(@RequestParam(value = "key", defaultValue = "") String key,@RequestParam(value =
