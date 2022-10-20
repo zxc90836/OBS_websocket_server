@@ -1,8 +1,13 @@
-@charset "UTF-8";
 html, body {
   height: 100%;
   padding: 0;
   margin: 0;
+  background: #f0f0f0;
+  font-family: roboto, sans-serif;
+}
+
+.votePage {
+  background-color: #ffffff;
 }
 
 .table tbody tr:hover {
@@ -21,13 +26,6 @@ html, body {
 
 .nav-item {
   cursor: pointer;
-}
-
-.stream_displayBox {
-  width: min(100% - 340px);
-  position: relative;
-  float: left;
-  margin: 10px;
 }
 
 .main_container {
@@ -49,70 +47,234 @@ html, body {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.personal_info_body {
-  height: 800px;
+.collaborator_info_body {
+  /*height: 80%;
   border-radius: 20px;
-  background-color: #e6e6e6;
+  background-color: #e6e6e6;//#f6f6f6*/
 }
-.personal_info_body .col-4 .left {
+.collaborator_info_body .col-4 .left {
   margin: 2rem;
 }
-.personal_info_body .col-4 .left img {
-  border: 2px black solid;
+.collaborator_info_body .col-4 .left .collaborator_list {
   width: 100%;
-  height: auto;
+  height: 422px;
+  border: 1px solid #ddd;
 }
-.personal_info_body .col-4 .left .account_info {
-  margin-top: 1rem;
-  border: 2px black solid;
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room {
+  float: left;
   width: 100%;
-  padding: 0.5rem;
+  right: 0;
+  margin: 0px;
+  position: relative;
 }
-.personal_info_body .col-4 .left .notification_info {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  border: 2px black solid;
-  height: 250px;
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_header {
+  font-size: 30px;
+  width: auto;
+  padding: 12px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(80, 80, 80, 0.3);
+  display: flex;
+  justify-content: space-between;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_header .invite_input {
+  width: 100%;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body {
   overflow: scroll;
+  height: 300px;
+  overflow-x: hidden;
+  position: relative;
 }
-.personal_info_body .col-4 .left .notification_info table {
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator {
+  width: 100%;
+  max-height: 60px;
+  padding: 10px;
+  display: flex;
+  position: relative;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator .channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator .info .name {
+  width: 100%;
+  max-height: 40px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator .info .authority {
+  font-size: 14px;
+  margin: 2px 3px;
+  color: #dcdcdc;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator .info .authority.active {
+  color: #2f2f2f;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator .info .authority-enable {
+  font-size: 14px;
+  margin: 2px 3px;
+  color: #979797;
+  cursor: pointer;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator .info .authority-enable:hover {
+  color: #2f2f2f;
+  background-color: #979797;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator .info .authority-enable.active {
+  color: #2f2f2f;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator:hover .edit_button_collaborator {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  padding-top: 5px;
+  margin-top: 10px;
+  top: 0;
+  right: 0;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator:hover .edit_button_collaborator span {
+  width: 4px;
+  height: 4px;
+  border-radius: 10px;
+  background-color: black;
+  position: absolute;
+  top: 7px;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator:hover .edit_button_collaborator span:nth-child(2) {
+  top: 14px;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator:hover .edit_button_collaborator span:nth-child(3) {
+  top: 21px;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator:hover .edit_button_collaborator:hover {
+  background-color: rgba(150, 150, 150, 0.4);
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_footer {
+  font-size: 30px;
+  width: auto;
+  padding: 6px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(80, 80, 80, 0.3);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_footer .invite_input {
+  width: 100%;
+}
+.collaborator_info_body .col-4 .left .notification_info {
+  border: 2px black solid;
+  height: 342px;
+  overflow: scroll;
+  background-color: #f1f1f1;
+}
+.collaborator_info_body .col-4 .left .notification_info table {
+  table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
 }
-.personal_info_body .col-8 .right {
+.collaborator_info_body .col-4 .left .notification_info table th, .collaborator_info_body .col-4 .left .notification_info table td {
+  border-bottom: 2px solid #ddd;
+}
+.collaborator_info_body .col-8 .right {
   margin: 2rem;
 }
-.personal_info_body .col-8 .right h1 {
+.collaborator_info_body .col-8 .right h1 {
   margin-top: 2rem;
   border-bottom: 2px black solid;
   height: 20%;
 }
-.personal_info_body .col-8 .right .calendar {
+.collaborator_info_body .col-8 .right .calendar {
   margin-top: 2rem;
 }
-.personal_info_body .col-8 .right .calendar table {
+.collaborator_info_body .col-8 .right .calendar table {
   width: 100%;
   overflow: hidden;
 }
-.personal_info_body .col-8 .right .calendar table tbody td {
-  height: 5rem;
+.collaborator_info_body .col-8 .right .calendar table tbody td {
+  height: 7rem;
+  border: 2px solid black;
+  position: relative;
+  vertical-align: top;
+}
+.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  padding-top: 5px;
+  bottom: 0;
+  right: 0;
+  border-radius: 50px;
+  background-color: rgba(150, 150, 150, 0.1);
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn span {
+  width: 4px;
+  height: 4px;
+  border-radius: 10px;
+  background-color: black;
+  position: absolute;
+  top: 17px;
+}
+.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn span:nth-child(2) {
+  top: 11px;
+}
+.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn span:nth-child(3) {
+  top: 5px;
+}
+.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn:hover {
+  scale: 1.5;
+  right: 7px;
+  bottom: 7px;
+  background-color: rgba(150, 150, 150, 0.4);
 }
 
-/*
-  此程式會讓刪除按鈕失效 待修正
-.sceneList{
+.sceneList {
   height: 130px;
   overflow: auto;
   overflow-y: scroll;
   overflow-x: hidden;
 }
-*/
+
+.stream_toolBox {
+  float: left;
+  width: 300px;
+  right: 0;
+  margin: 10px;
+  border: 1px solid #ddd;
+}
+
+.stream_displayBox {
+  margin: 10px;
+  width: min(100% - 340px);
+  position: relative;
+  float: left;
+}
+
 .chatroom {
   float: left;
   width: 300px;
   right: 0;
   margin: 10px;
   position: relative;
+  border: 1px solid #ddd;
 }
 .chatroom .chatroom_header {
   width: auto;
@@ -122,7 +284,7 @@ html, body {
 }
 .chatroom .chatroom_body {
   overflow: scroll;
-  height: 320px;
+  height: 292px;
   overflow-x: hidden;
 }
 .chatroom .chatroom_body .comments {
@@ -131,14 +293,16 @@ html, body {
   background-color: #f6f6f6;
   position: relative;
 }
+.chatroom .chatroom_body .comments img {
+  float: left;
+}
 .chatroom .chatroom_body .comments .comments_text {
+  padding-left: 36px;
   font-size: 12px;
-  text-align: center;
-  align-content: center;
 }
 .chatroom .chatroom_body .comments .comments_name {
   color: rgba(0, 0, 0, 0.5);
-  padding-left: 12px;
+  padding-left: 8px;
   padding-right: 6px;
 }
 .chatroom .chatroom_body .comments:hover .edit_button {
@@ -173,91 +337,97 @@ html, body {
 .chatroom .chatroom_body .comments:hover .edit_button:hover {
   background-color: rgba(150, 150, 150, 0.4);
 }
-.chat-manager-list {
+.chat-manager-list, .collaborator-manager-list, .collaborator-calendar-list {
   position: absolute;
   left: 0;
   right: 0;
   background-color: white;
   width: 120px;
-  z-index: 1;
+  z-index: 6;
 }
-.chat-manager-list p {
+.chat-manager-list p, .collaborator-manager-list p, .collaborator-calendar-list p {
   text-align: center;
   margin: 0;
   height: 2.5rem;
   padding: 0.5rem;
 }
-.chat-manager-list p:hover {
+.chat-manager-list p:hover, .collaborator-manager-list p:hover, .collaborator-calendar-list p:hover {
   background-color: rgba(50, 50, 50, 0.2);
   cursor: pointer;
 }
 
-.toggle_button {
+/*
+.toggle_button{
   position: absolute;
   right: 100px;
   top: 100px;
   width: 70px;
   height: 70px;
   background: #FFF;
+  //box-shadow: 0 10px 20px rgba(0,0,0,0.08);
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   cursor: pointer;
-}
-.toggle_button span {
-  position: absolute;
-  width: 40px;
-  height: 4px;
-  background: #1863FF;
-  border-radius: 4px;
-  transition: 0.5s;
-}
-.toggle_button span:nth-child(1) {
-  transform: translateY(-15px);
-  width: 25px;
-  left: 15px;
-}
-.toggle_button span:nth-child(2) {
-  transform: translateY(15px);
-  width: 15px;
-  left: 15px;
-}
-.toggle_button:hover span:nth-child(1) {
-  width: 40px;
-  left: 15px;
-}
-.toggle_button:hover span:nth-child(2) {
-  width: 40px;
-  left: 15px;
-}
-.toggle_button.active span {
-  width: 40px;
-  height: 4px;
-  background: #1863FF;
-  border-radius: 4px;
-  transition: 0.5s;
-}
-.toggle_button.active span:nth-child(1) {
-  transform: translateY(0px) rotate(45deg);
-  width: 40px;
-}
-.toggle_button.active span:nth-child(2) {
-  transform: translateY(0px) rotate(315deg);
-  width: 40px;
-}
-.toggle_button.active span:nth-child(3) {
-  transform: translateX(60px);
-}
-
+  span{
+    position: absolute;
+    width: 40px;
+    height: 4px;
+    background: #1863FF;
+    border-radius: 4px;
+    transition: 0.5s;
+    &:nth-child(1){
+      transform: translateY(-15px);
+      width:25px;
+      left:15px;
+    }
+    &:nth-child(2){
+      transform: translateY(15px);
+      width:15px;
+      left:15px;
+    }
+  }
+  &:hover{
+    span{
+      &:nth-child(1){
+        width:40px;
+        left:15px;
+      }
+      &:nth-child(2){
+        width:40px;
+        left:15px;
+      }
+    }
+  }
+  &.active{
+    span{
+      width: 40px;
+      height: 4px;
+      background: #1863FF;
+      border-radius: 4px;
+      transition: 0.5s;
+      &:nth-child(1){
+        transform: translateY(0px) rotate(45deg);
+        width:40px;
+      }
+      &:nth-child(2){
+        transform: translateY(0px) rotate(315deg);
+        width:40px;
+      }
+      &:nth-child(3){
+        transform: translateX(60px);
+      }
+    }
+  }
+}*/
 .input-group .close_button {
   top: 5px;
   left: -40px;
   position: absolute;
   width: 30px;
   height: 30px;
-  background: #ffffff;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -283,41 +453,6 @@ html, body {
   left: 6px;
 }
 
-/*
-.close_button{
-  top: 5px;
-  left: 40px;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  background: #ffffff;
-  //box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  //overflow: hidden;
-  cursor: pointer;
-  span{
-    position: absolute;
-    width: 40px;
-    height: 4px;
-    background: #1863FF;
-    border-radius: 4px;
-    transition: 0.5s;
-    &:nth-child(1){
-      transform: rotate(45deg);
-      width:20px;
-      left:6px;
-    }
-    &:nth-child(2){
-      transform: rotate(315deg);
-      width:20px;
-      left:6px;
-    }
-  }
-
-}*/
 /*  video 21min  */
 .video-container {
   padding: 20px;
@@ -326,5 +461,85 @@ html, body {
   grid-gap: 20px 5px;
   overflow-x: hidden;
 }
+.video-container .video {
+  min-height: 250px;
+  height: auto;
+  cursor: pointer;
+}
+.video-container .video .thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.video-container .video .content {
+  width: 100%;
+  max-height: 100px;
+  padding: 10px;
+  display: flex;
+}
+.video-container .video .content .channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.video-container .video .content .info .title {
+  width: 100%;
+  max-height: 40px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.video-container .video .content .info .channel-name {
+  font-size: 14px;
+  margin: 2px 0;
+  color: #979797;
+}
+
+.center {
+  top: calc(50% - 200px);
+  left: calc(50% - 300px);
+  height: 400px;
+  width: 600px;
+  position: fixed;
+  z-index: 6;
+}
+
+.black_background {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
+
+.white_background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.page3 {
+  height: calc(100% - 90px);
+}
+
+.main_data {
+  margin: 2px;
+  height: 150px;
+  background-color: #f6f6f6;
+  box-shadow: 1px 2px 0px 0px rgba(0, 0, 0, 0.08);
+}
+
+/* video end */
 
 /*# sourceMappingURL=pagestyle.css.map */

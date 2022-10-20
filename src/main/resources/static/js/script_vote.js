@@ -22,6 +22,8 @@
             $(".close_button").click(function (e) {
                 e.target.closest('.input-group').remove();
             });
+
+
         });
     })
     function showVoteResultPage() {
@@ -36,10 +38,9 @@
         let votingInfo = {}; // Object
 
         var sec = parseInt($('#timeLimit').val()) * 60;
-        votingInfo.timeLimit   = sec;
-        votingInfo.pollAccount = sessionStorage.getItem("user");
-        votingInfo.pollAccount = "user";
-        votingInfo.question  = $('#votingQuestion').val();
+        votingInfo.timeLimit   = sec; // 尚未建立
+        votingInfo.pollAccount = sessionStorage.getItem("user"); // 尚未建立
+        votingInfo.title  = $('#votingQuestion').val();
         votingInfo.legalResponse = new Map;
         //console.log($("#serial" + serial).val());
         while($('#response' + serial).length > 0) {
@@ -47,13 +48,9 @@
             votingInfo.legalResponse.set($('#response' + serial).val(),$('#attr' + serial).val())
             serial++;
         }
-        let obj = {};
-        for(let [k,v] of votingInfo.legalResponse) {
-            obj[k] = v;
-        }
-        votingInfo.legalResponse = obj;
-        //pop out from while (Name doesn't exist)TEST321
-        console.log(votingInfo)
+        // pop out from while (Name doesn't exist)TEST321
+
+        votingInfo = JSON.stringify(votingInfo);
         return votingInfo;
     }
 
@@ -62,17 +59,18 @@
 
         $('#startVoting').click(function (){
             var data = createVoting();
-            data = JSON.stringify(data);
             console.log(data);
-            url = "/OBS_websocket/start_vote";
-            console.log("cccc:"+url)
+            url = "http://127.0.0.1:55304/OBS_websocket/startVote";
             $.ajax({
                 type: "POST",
                 url: url,
-                data: data,
-                contentType: "application/json",
+                data:data,
                 success: function(re){
-                    alert(re);
+                    if(re == true){
+                        alert("投票發起成功，請前往投票結果查看。");
+                    }
+                    else
+                        alert("投票發起失敗，請重新嘗試");
                 },
                 error: function (thrownError) {
                     alert(thrownError);
