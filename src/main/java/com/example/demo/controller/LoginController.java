@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.ClientMap;
 import com.example.demo.VoteData;
 import com.example.demo.entity.SignUpData;
 import com.example.demo.entity.Team;
@@ -7,6 +8,7 @@ import com.example.demo.entity.User;
 import com.example.demo.service.LoginService;
 import com.example.demo.youtubeAPI.*;
 import lombok.extern.slf4j.Slf4j;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -123,4 +127,33 @@ public class LoginController {
     public String getComments(@RequestParam(value = "key", defaultValue = "") String key){
         return service.getComment(key);
     }
+    @PostMapping(value = "/start_vote") //http://127.0.0.1:55304/OBS_websocket/start_vote
+    public String startVote(@RequestBody VoteData voteData) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"startVote " + mapper.writeValueAsString(voteData));
+        return "success";
+    }
+    @GetMapping("/get_voteResult")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+    public String getVoteResult(@RequestBody VoteData voteData){
+        ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData");
+        return "success";
+    }
+    /*
+    public static void main(String args[]) throws IOException {
+        VoteData v = new VoteData();
+        v.setQuestion("今天幾點睡");
+        v.setTimeLimit(60);
+        v.setPollAccount("00857027@email.ntou.edu.tw");
+        Map<String,String> m = new HashMap<>();
+        m.put("A","1");
+        m.put("B","2");
+        m.put("C","3");
+        v.setLegalResponse(m);
+
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(mapper.writeValueAsString(v));
+    }
+*/
 }
