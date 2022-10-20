@@ -25,7 +25,7 @@ import java.math.BigInteger;
 //http://180.177.24.44:55304/Youtube_API
 public class YoutubeController {
 
-    private static YoutubeDataService service = new YoutubeDataService();
+    private YoutubeDataService service = new YoutubeDataService();
     @GetMapping("/get_myVideos")//http://127.0.0.1:55304/Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public String getMyVideos(){
