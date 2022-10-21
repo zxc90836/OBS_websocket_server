@@ -22,8 +22,6 @@
             $(".close_button").click(function (e) {
                 e.target.closest('.input-group').remove();
             });
-
-
         });
     })
     function showVoteResultPage() {

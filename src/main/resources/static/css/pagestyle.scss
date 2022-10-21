@@ -2,6 +2,7 @@ html,body{
   height: 100%;
   padding: 0;
   margin: 0;
+
   //background: #f0f0f0;
   background: #f0f0f0;
   font-family: roboto, sans-serif;
@@ -226,6 +227,7 @@ html,body{
           }
           tbody{
             td{
+
               height: 7rem;
               border: 2px solid black;
               position: relative;
@@ -277,9 +279,7 @@ html,body{
     }
   }
 }
-//.click-to-revise{
-//
-//}
+
 .sceneList{
   height: 130px;
   overflow: auto;
@@ -302,6 +302,7 @@ html,body{
   position: relative;
   float: left;
 }
+
 
 .chatroom{
   float: left;
@@ -402,7 +403,6 @@ html,body{
   }
 
 }
-
 /*
 .toggle_button{
   position: absolute;
@@ -468,6 +468,7 @@ html,body{
       }
     }
   }
+
 }*/
 .input-group{
   .close_button{
@@ -476,6 +477,7 @@ html,body{
     position: absolute;
     width: 30px;
     height: 30px;
+
     //background: #ffffff;
     //box-shadow: 0 10px 20px rgba(0,0,0,0.08);
     border-radius: 10px;
@@ -506,7 +508,6 @@ html,body{
   }
 }
 
-
 /*  video 21min  */
 .video-container{
   padding: 20px;
@@ -514,6 +515,7 @@ html,body{
   grid-template-columns: repeat(4, 25%);
   grid-gap: 20px 5px;
   overflow-x: hidden;
+
   .video{
     min-height: 250px;
     height: auto;

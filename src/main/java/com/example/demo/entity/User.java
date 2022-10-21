@@ -16,8 +16,11 @@ public class User {
     private Map<String,String> collaborate = new HashMap<>();
 
 
-    public void addCollaborate(String name,String scope){
-        collaborate.put(name,scope);
+    public void addCollaborate(String account,String team){
+        collaborate.put(account,team);
+    }
+    public void deleteCollaborate(String account){
+        collaborate.remove(account);
     }
     public String getYoutubeAccount() {
         return youtubeAccount;

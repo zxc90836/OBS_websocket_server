@@ -1,7 +1,9 @@
+
 html, body {
   height: 100%;
   padding: 0;
   margin: 0;
+
   background: #f0f0f0;
   font-family: roboto, sans-serif;
 }
@@ -28,6 +30,7 @@ html, body {
   cursor: pointer;
 }
 
+
 .main_container {
   width: min(100% - 2rem);
   margin-top: 0.5rem;
@@ -46,6 +49,7 @@ html, body {
 .w3-card-4 .w3-container p:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
+
 
 .collaborator_info_body {
   /*height: 80%;
@@ -195,6 +199,7 @@ html, body {
   border-bottom: 2px black solid;
   height: 20%;
 }
+
 .collaborator_info_body .col-8 .right .calendar {
   margin-top: 2rem;
 }
@@ -247,6 +252,7 @@ html, body {
 }
 
 .sceneList {
+
   height: 130px;
   overflow: auto;
   overflow-y: scroll;
@@ -293,6 +299,7 @@ html, body {
   background-color: #f6f6f6;
   position: relative;
 }
+
 .chatroom .chatroom_body .comments img {
   float: left;
 }
@@ -337,12 +344,14 @@ html, body {
 .chatroom .chatroom_body .comments:hover .edit_button:hover {
   background-color: rgba(150, 150, 150, 0.4);
 }
+
 .chat-manager-list, .collaborator-manager-list, .collaborator-calendar-list {
   position: absolute;
   left: 0;
   right: 0;
   background-color: white;
   width: 120px;
+
   z-index: 6;
 }
 .chat-manager-list p, .collaborator-manager-list p, .collaborator-calendar-list p {
@@ -351,10 +360,12 @@ html, body {
   height: 2.5rem;
   padding: 0.5rem;
 }
+
 .chat-manager-list p:hover, .collaborator-manager-list p:hover, .collaborator-calendar-list p:hover {
   background-color: rgba(50, 50, 50, 0.2);
   cursor: pointer;
 }
+
 
 /*
 .toggle_button{
@@ -364,13 +375,16 @@ html, body {
   width: 70px;
   height: 70px;
   background: #FFF;
+
   //box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   cursor: pointer;
+
   span{
     position: absolute;
     width: 40px;
@@ -428,6 +442,7 @@ html, body {
   position: absolute;
   width: 30px;
   height: 30px;
+
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -453,6 +468,7 @@ html, body {
   left: 6px;
 }
 
+
 /*  video 21min  */
 .video-container {
   padding: 20px;
@@ -461,6 +477,7 @@ html, body {
   grid-gap: 20px 5px;
   overflow-x: hidden;
 }
+
 .video-container .video {
   min-height: 250px;
   height: auto;
@@ -541,5 +558,4 @@ html, body {
 }
 
 /* video end */
-
 /*# sourceMappingURL=pagestyle.css.map */
