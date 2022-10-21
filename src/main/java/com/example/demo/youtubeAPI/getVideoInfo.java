@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 public class getVideoInfo {
@@ -18,7 +19,7 @@ public class getVideoInfo {
      * to make YouTube Data API requests.
      */
     private static YouTube youtube;
-    private static Video video;
+    private static Video video = new Video();
 
     public static Video getVideoInfo(String videoID) {
 
@@ -37,7 +38,6 @@ public class getVideoInfo {
                     .list("snippet,liveStreamingDetails,statistics,status,recordingDetails");
             VideoListResponse response = request6.setId(videoID).execute();
             //System.out.println(response);
-
             List<String> tags = response.getItems().get(0).getSnippet().getTags(); //tags
             String description = response.getItems().get(0).getSnippet().getDescription(); //說明欄
             String uploadStatus = response.getItems().get(0).getStatus().getPrivacyStatus(); //影片權限
@@ -75,6 +75,8 @@ public class getVideoInfo {
             System.out.println("實際開始時間:" + actualStartTime);
             System.out.println("表定開始時間:" + scheduledStartTime);
             System.out.println("實際結束時間:" + actualEndTime);
+
+            video.setId(videoID);
             video.setTags(tags);
             video.setDescription(description);
             video.setUploadStatus(uploadStatus);
@@ -86,9 +88,27 @@ public class getVideoInfo {
             video.setLikeCount(likeCount);
             video.setViewCount(viewCount);
             video.setConcurrentViewers(concurrentViewers);
-            video.setActualStartTime(actualStartTime);
-            video.setScheduledStartTime(scheduledStartTime);
-            video.setActualEndTime(actualEndTime);
+            if(actualStartTime!=null){
+                Date d = new Date();
+                d.setTime(actualStartTime.getValue());
+                video.setActualStartTime(d);
+            }
+            else
+                video.setActualStartTime(null);
+            if(scheduledStartTime!=null){
+                Date d = new Date();
+                d.setTime(scheduledStartTime.getValue());
+                video.setScheduledStartTime(d);
+            }
+            else
+                video.setActualStartTime(null);
+            if(actualEndTime!=null){
+                Date d = new Date();
+                d.setTime(actualEndTime.getValue());
+                video.setActualEndTime(d);
+            }
+            else
+                video.setActualStartTime(null);
 
         } catch (GoogleJsonResponseException e) {
             System.err

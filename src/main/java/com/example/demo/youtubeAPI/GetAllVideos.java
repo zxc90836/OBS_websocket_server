@@ -27,7 +27,7 @@ public class GetAllVideos {
     private static YouTube youtube;
     private static List<PlaylistItem> myVideo;
 
-    public static String getAllVideos() {
+    public static List<PlaylistItem> getAllVideos() {
 
         // This OAuth 2.0 access scope allows for read-only access to the
         // authenticated user's account, but not other types of account access.
@@ -103,7 +103,7 @@ public class GetAllVideos {
         } catch (Throwable t) {
             t.printStackTrace();
         }
-        return myVideo.toString();
+        return myVideo;
     }
 
     /*
@@ -125,5 +125,9 @@ public class GetAllVideos {
             //System.out.println(" upload date = " + playlistItem.getSnippet().getPublishedAt());
             System.out.println("\n-------------------------------------------------------------\n");
         }
+    }
+
+    public static List<PlaylistItem> getMyVideo() {
+        return myVideo;
     }
 }

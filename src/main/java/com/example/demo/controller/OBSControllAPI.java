@@ -18,7 +18,7 @@ public class OBSControllAPI {
     //http://140.121.196.20:55304/OBS_websocket/change_scene?key=&scene=場景
     public String changeScene(@RequestParam(value = "key", defaultValue = "") String key,@RequestParam(value =
             "scene", defaultValue = "") String scene){
-        ClientMap.sendMSGToOBSServer(key,"switchScene "+scene);
+        ClientMap.sendMSGToOBSServer(key,"switchScene "+ scene);
         return "success";
     }
     @GetMapping("/get_scenes")//http://127.0.0.1:55304/OBS_websocket/get_scenes?key=00857027@email.ntou.edu.tw"
@@ -26,17 +26,5 @@ public class OBSControllAPI {
     public String getScenes(@RequestParam(value = "key", defaultValue = "") String key){
         ClientMap.getScenes(key);
         return ClientMap.getScenes(key);
-    }
-    @PostMapping(value = "/start_vote") //http://127.0.0.1:55304/OBS_websocket/start_vote
-    public String startVote(@RequestBody VoteData voteData){
-        log.info(voteData.toString());
-        VoteAPI v = new VoteAPI();
-        v.run(voteData);
-        return "voteData";
-    }
-    @GetMapping("/get_voteResult")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
-    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
-    public VoteResult get_voteResult(){
-        return VoteAPI.getVoteResult();
     }
 }
