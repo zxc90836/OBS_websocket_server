@@ -5,6 +5,7 @@ public class Schedule {
     private String describe;
     private String streamSchedule;
 
+
     public void setSchedule(SetScheduleData data){
         date = data.date;
         describe = data.describe;

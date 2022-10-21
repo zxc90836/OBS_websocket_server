@@ -16,6 +16,7 @@ import java.util.Map;
 public class Team {
     private String youtubeAccount;
     private String userName;
+
     private Map<String, MemberPermission> member = new HashMap<>();
     private Map<String,Schedule> schedule = new HashMap<>();
     public void addMember(MemberPermission scope){
@@ -32,6 +33,7 @@ public class Team {
     }
     public void deleteSchedule(String date){
         schedule.remove(date);
+
     }
     public String getYoutubeAccount() {
         return youtubeAccount;

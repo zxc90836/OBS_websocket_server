@@ -82,6 +82,7 @@ public class LoginService {
             newUser.setUserName(account);
             newUser.setYoutubeAccount(youtubeAccount);
             newUser.addCollaborate(account,youtubeAccount);
+
             newTeam.setUserName(account);
             newTeam.setYoutubeAccount(youtubeAccount);
             newTeam.addMember(new MemberPermission(account,true,true,true));
@@ -193,4 +194,5 @@ public class LoginService {
         }
         return false;
     }
+
 }
