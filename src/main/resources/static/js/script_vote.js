@@ -37,19 +37,24 @@
 
         var sec = parseInt($('#timeLimit').val()) * 60;
         votingInfo.timeLimit   = sec; // 尚未建立
-        votingInfo.pollAccount = sessionStorage.getItem("user"); // 尚未建立
-        votingInfo.title  = $('#votingQuestion').val();
-        votingInfo.legalResponse = new Map;
+        //votingInfo.pollAccount = sessionStorage.getItem("user"); // 尚未建立
+        votingInfo.pollAccount ="00857027@email.ntou.edu.tw";
+        votingInfo.question  = $('#votingQuestion').val();
+        let tempMap = new Map();
         //console.log($("#serial" + serial).val());
         while($('#response' + serial).length > 0) {
-            console.log(typeof responseArr);
-            votingInfo.legalResponse.set($('#response' + serial).val(),$('#attr' + serial).val())
+            let key = $('#response' + serial).val();
+            let value = $('#attr' + serial).val();
+            console.log(key+"   "+value);
+            tempMap.set(key,value);
             serial++;
+            console.log(Object.fromEntries(tempMap));
         }
+        votingInfo.legalResponse = Object.fromEntries(tempMap);
         // pop out from while (Name doesn't exist)TEST321
 
-        votingInfo = JSON.stringify(votingInfo);
-        return votingInfo;
+
+        return JSON.stringify(votingInfo);
     }
 
     $(document).ready(function (){
@@ -58,11 +63,16 @@
         $('#startVoting').click(function (){
             var data = createVoting();
             console.log(data);
-            url = "http://127.0.0.1:55304/OBS_websocket/startVote";
+            url = "http://127.0.0.1:55304/start_vote";
             $.ajax({
                 type: "POST",
                 url: url,
                 data:data,
+                dataType: 'json',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 success: function(re){
                     if(re == true){
                         alert("投票發起成功，請前往投票結果查看。");
