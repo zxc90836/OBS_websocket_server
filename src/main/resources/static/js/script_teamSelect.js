@@ -16,12 +16,14 @@
                 console.log(teamName);
                 var team_card = `
                 <div class="col-4">
-                    <div class="card select-team1 select-card" id = "${teamName}">
-                        <div class="card-body">
-                            <h4 class="card-title"style="text-align: center;">團隊${num++}</h4>
-                            <p class="card-text" style="max-height: 25px;overflow: hidden">${team}</p>
+                    <a class="delete-link-style" href="index.html">
+                        <div class="card select-team1 select-card" id = "${teamName}">
+                            <div class="card-body">
+                                <h4 class="card-title"style="text-align: center;">團隊${num++}</h4>
+                                <p class="card-text" style="max-height: 25px;overflow: hidden">${team}</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 `;
                 $(".teams_container").append(team_card);
