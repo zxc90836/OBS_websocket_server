@@ -1,9 +1,14 @@
 // 此為回到最上層按鈕的JS
 {
-
+    const video_focus = document.querySelector('.video-focus');
+    function video_details_show(target) {
+        let page = target;
+        console.log(page.id);
+        video_focus.innerHTML=page.id;
+    }
     const videoCardContainer = document.querySelector('.video-container');
 
-    let api_key = "AIzaSyBLywrpuktG65bWffVToT3co9rB7DNZoBE"
+    let api_key = "AIzaSyCf7rHaZ9g7bJWfFvHCO8f8gX7eSlbp-Ww"
     let video_http = "https://www.googleapis.com/youtube/v3/videos?";
     let channel_http = "https://www.googleapis.com/youtube/v3/channels?";
 
