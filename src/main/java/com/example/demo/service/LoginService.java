@@ -121,6 +121,16 @@ public class LoginService {
         }
         return null;
     }
+    public Team getTeam(String teamName){
+        Query query = new Query(Criteria.where("youtubeAccount").is(teamName));
+        Team result = mongoTemplate.findOne(query, Team.class, COLLECTION_NAME);
+        if(result != null){
+            log.info("getTeam got it--------------------"+result);
+            return result;
+        }
+        log.info("null--------------------");
+        return null;
+    }
     public boolean setSchedule(String team,Schedule newSchedule){
         Query query = new Query(Criteria.where("youtubeAccount").is(team));
         Update update = new Update();
