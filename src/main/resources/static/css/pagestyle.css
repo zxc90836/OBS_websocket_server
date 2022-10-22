@@ -1,9 +1,7 @@
-
 html, body {
   height: 100%;
   padding: 0;
   margin: 0;
-
   background: #f0f0f0;
   font-family: roboto, sans-serif;
 }
@@ -30,7 +28,6 @@ html, body {
   cursor: pointer;
 }
 
-
 .main_container {
   width: min(100% - 2rem);
   margin-top: 0.5rem;
@@ -50,23 +47,29 @@ html, body {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.container-fluid {
+  height: calc(100% - 72px - 2rem);
+}
 
 .collaborator_info_body {
   /*height: 80%;
   border-radius: 20px;
   background-color: #e6e6e6;//#f6f6f6*/
+  height: 100%;
 }
 .collaborator_info_body .col-4 .left {
-  margin: 2rem;
+  height: 100%;
+  margin: 2rem 0 2rem 2rem;
 }
 .collaborator_info_body .col-4 .left .collaborator_list {
   width: 100%;
-  height: 422px;
+  height: calc(100% - 4rem);
   border: 1px solid #ddd;
 }
 .collaborator_info_body .col-4 .left .collaborator_list .collaborator_room {
   float: left;
   width: 100%;
+  height: 100%;
   right: 0;
   margin: 0px;
   position: relative;
@@ -76,8 +79,8 @@ html, body {
   width: auto;
   padding: 12px;
   background-color: #ffffff;
-  border-bottom: 1px solid rgba(80, 80, 80, 0.3);
   display: flex;
+  border-bottom: 1px solid rgba(80, 80, 80, 0.3);
   justify-content: space-between;
 }
 .collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_header .invite_input {
@@ -85,9 +88,10 @@ html, body {
 }
 .collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body {
   overflow: scroll;
-  height: 300px;
+  height: calc(100% - 121px);
   overflow-x: hidden;
   position: relative;
+  background-color: #f9f9f9;
 }
 .collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_body .collaborator {
   width: 100%;
@@ -169,51 +173,76 @@ html, body {
   width: auto;
   padding: 6px;
   background-color: #ffffff;
-  border-bottom: 1px solid rgba(80, 80, 80, 0.3);
+  border-top: 1px solid rgba(80, 80, 80, 0.3);
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
 }
 .collaborator_info_body .col-4 .left .collaborator_list .collaborator_room .collaboratorRoom_footer .invite_input {
   width: 100%;
 }
-.collaborator_info_body .col-4 .left .notification_info {
-  border: 2px black solid;
-  height: 342px;
-  overflow: scroll;
-  background-color: #f1f1f1;
-}
-.collaborator_info_body .col-4 .left .notification_info table {
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-}
-.collaborator_info_body .col-4 .left .notification_info table th, .collaborator_info_body .col-4 .left .notification_info table td {
-  border-bottom: 2px solid #ddd;
-}
 .collaborator_info_body .col-8 .right {
-  margin: 2rem;
+  height: 100%;
+  margin: 2rem 0 2rem 2rem;
 }
-.collaborator_info_body .col-8 .right h1 {
-  margin-top: 2rem;
-  border-bottom: 2px black solid;
-  height: 20%;
-}
-
-.collaborator_info_body .col-8 .right .calendar {
-  margin-top: 2rem;
-}
-.collaborator_info_body .col-8 .right .calendar table {
+.collaborator_info_body .col-8 .right .bulletinBoard_list {
   width: 100%;
-  overflow: hidden;
+  height: calc(100% - 4rem);
+  border: 1px solid #ddd;
 }
-.collaborator_info_body .col-8 .right .calendar table tbody td {
-  height: 7rem;
-  border: 2px solid black;
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room {
+  float: left;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  margin: 0px;
   position: relative;
-  vertical-align: top;
 }
-.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn {
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_header {
+  font-size: 30px;
+  width: auto;
+  padding: 12px;
+  background-color: bisque;
+  border-bottom: 1px solid rgba(80, 80, 80, 0.3);
+  display: flex;
+  justify-content: space-between;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_header .invite_input {
+  width: 100%;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body {
+  overflow: scroll;
+  height: calc(100% - 159px);
+  overflow-x: hidden;
+  position: relative;
+  background-color: #ffffff;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard {
+  width: 100%;
+  max-height: 60px;
+  padding: 10px;
+  display: flex;
+  position: relative;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard .channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard .info .content {
+  width: 100%;
+  max-height: 40px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard .info .time {
+  font-size: 14px;
+  margin: 2px 3px;
+  color: #2f2f2f;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard:hover .calendar_add_btn {
   width: 25px;
   height: 25px;
   position: absolute;
@@ -230,7 +259,7 @@ html, body {
   cursor: pointer;
   transition: 0.5s;
 }
-.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn span {
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard:hover .calendar_add_btn span {
   width: 4px;
   height: 4px;
   border-radius: 10px;
@@ -238,21 +267,37 @@ html, body {
   position: absolute;
   top: 17px;
 }
-.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn span:nth-child(2) {
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard:hover .calendar_add_btn span:nth-child(2) {
   top: 11px;
 }
-.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn span:nth-child(3) {
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard:hover .calendar_add_btn span:nth-child(3) {
   top: 5px;
 }
-.collaborator_info_body .col-8 .right .calendar table tbody td:hover .calendar_add_btn:hover {
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .bulletinBoard_body .bulletinBoard:hover .calendar_add_btn:hover {
   scale: 1.5;
   right: 7px;
   bottom: 7px;
   background-color: rgba(150, 150, 150, 0.4);
 }
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .collaboratorRoom_footer {
+  font-size: 30px;
+  width: auto;
+  padding: 6px;
+  background-color: #ffffff;
+  border-top: 1px solid rgba(80, 80, 80, 0.3);
+  display: flex;
+  justify-content: space-between;
+}
+.collaborator_info_body .col-8 .right .bulletinBoard_list .bulletinBoard_room .collaboratorRoom_footer .invite_input {
+  width: 100%;
+}
+.collaborator_info_body .col-8 .right h1 {
+  margin-top: 2rem;
+  border-bottom: 2px black solid;
+  height: 20%;
+}
 
 .sceneList {
-
   height: 130px;
   overflow: auto;
   overflow-y: scroll;
@@ -299,7 +344,6 @@ html, body {
   background-color: #f6f6f6;
   position: relative;
 }
-
 .chatroom .chatroom_body .comments img {
   float: left;
 }
@@ -344,14 +388,12 @@ html, body {
 .chatroom .chatroom_body .comments:hover .edit_button:hover {
   background-color: rgba(150, 150, 150, 0.4);
 }
-
 .chat-manager-list, .collaborator-manager-list, .collaborator-calendar-list {
   position: absolute;
   left: 0;
   right: 0;
   background-color: white;
   width: 120px;
-
   z-index: 6;
 }
 .chat-manager-list p, .collaborator-manager-list p, .collaborator-calendar-list p {
@@ -360,12 +402,10 @@ html, body {
   height: 2.5rem;
   padding: 0.5rem;
 }
-
 .chat-manager-list p:hover, .collaborator-manager-list p:hover, .collaborator-calendar-list p:hover {
   background-color: rgba(50, 50, 50, 0.2);
   cursor: pointer;
 }
-
 
 /*
 .toggle_button{
@@ -375,16 +415,13 @@ html, body {
   width: 70px;
   height: 70px;
   background: #FFF;
-
   //box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   cursor: pointer;
-
   span{
     position: absolute;
     width: 40px;
@@ -442,7 +479,6 @@ html, body {
   position: absolute;
   width: 30px;
   height: 30px;
-
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -468,7 +504,6 @@ html, body {
   left: 6px;
 }
 
-
 /*  video 21min  */
 .video-container {
   padding: 20px;
@@ -477,7 +512,6 @@ html, body {
   grid-gap: 20px 5px;
   overflow-x: hidden;
 }
-
 .video-container .video {
   min-height: 250px;
   height: auto;
@@ -550,12 +584,56 @@ html, body {
   height: calc(100% - 90px);
 }
 
+.viewer {
+  border-left: 14px solid cornflowerblue;
+}
+
+.viewCount {
+  border-left: 14px solid forestgreen;
+}
+
+.subscription {
+  border-left: 14px solid darkred;
+}
+
+.income {
+  border-left: 14px solid gold;
+}
+
 .main_data {
   margin: 2px;
   height: 150px;
   background-color: #f6f6f6;
   box-shadow: 1px 2px 0px 0px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+.main_data p {
+  color: grey;
+  font-size: 30px;
+  margin: 0;
+}
+.main_data span {
+  font-size: 30px;
+  margin-left: 2rem;
+}
+
+.dataTable {
+  height: calc(100% - 258px);
+}
+.dataTable div {
+  height: 100%;
+  background-color: #f6f6f6;
+}
+
+.delete-link-style {
+  color: black;
+  text-decoration: none;
+}
+
+.fixHeight {
+  height: 100%;
 }
 
 /* video end */
+
 /*# sourceMappingURL=pagestyle.css.map */

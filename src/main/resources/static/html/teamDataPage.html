@@ -225,7 +225,7 @@
     <p>晉升為管理員</p>
   </div>
 </div>
-<div class="mt-3 container-fluid page2" style="display: none">
+<div class="container-fluid page2" style="display: none">
   <div class="collaborator_info_body row">
     <!--    左邊    -->
     <div class="col-4">
@@ -304,358 +304,85 @@
             </div>
           </div>
         </div>
-
-        <div class="notification_info">
-          <table>
-            <thead>
-            <tr>
-              <th colspan=2 style="text-align: center;position : sticky;top:0;background-color: #f1f1f1;">今日活動</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>工商會議</td>
-              <td>9 a.m.</td>
-            </tr>
-            <tr>
-              <td>直播</td>
-              <td>7 p.m.</td>
-            </tr>
-            <tr>
-              <td>檢討會</td>
-              <td>11 p.m.</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
     <!--    右邊    -->
     <div class="col-8 ">
       <div class="right">
-        <h1 style="text-align: center">團隊行事曆-十月</h1>
-        <div class="calendar">
-          <table>
-            <thead>
-            <tr>
-              <th>一</th>
-              <th>二</th>
-              <th>三</th>
-              <th>四</th>
-              <th>五</th>
-              <th>六</th>
-              <th>日</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>
-                <div class="calendar_add_btn">
+
+        <div class="bulletinBoard_list">
+          <div class="bulletinBoard_room">
+
+            <div class="bulletinBoard_header" style="">
+              <span>團隊公告欄</span>
+<!--              <button type="button" class="btn btn-primary">新增公告</button>-->
+            </div>
+            <span class=""></span>
+            <div class="bulletinBoard_body">
+              <div class="bulletinBoard">
+                <div class="info">
+                  <h4 class="content">工商直播前會議</h4>
+                  <span class="time">兩天後 15:00~17:00</span>
+                </div>
+                <div id="bulletinBoard-1" class="edit_button_collaborator">
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
+              </div>
+              <div class="bulletinBoard">
+                <div class="info">
+                  <h4 class="content">直播-XXX工商</h4>
+                  <span class="time">兩天後 19:00~21:00</span>
+                </div>
+                <div id="bulletinBoard-2" class="edit_button_collaborator">
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
+              </div>
+              <div class="bulletinBoard">
+                <div class="info">
+                  <h4 class="content">直播後檢討</h4>
+                  <span class="time">兩天後 22:00~23:00</span>
+                </div>
+                <div id="bulletinBoard-3" class="edit_button_collaborator">
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
+              </div>
+              <div class="bulletinBoard">
+                <div class="info">
+                  <h4 class="content">周邊合作廠商會議</h4>
+                  <span class="time">五天後 15:00~17:00</span>
+                </div>
+                <div id="bulletinBoard-4" class="edit_button_collaborator">
                   <span></span>
                   <span></span>
                   <span></span>
                 </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+              </div>
+            </div>
+            <!--  publisher input  -->
+            <div class="collaboratorRoom_footer">
+              <div class="invite_input">
+                <div class="input-group">
+                  <span class="input-group-text">公告</span>
+                  <input type="text" class="form-control" placeholder="內容">
                 </div>
-              </td>
-              <td>1
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                <div class="input-group">
+                  <span class="input-group-text">日期</span>
+                  <input type="date" class="form-control">
+                  <span class="input-group-text">開始</span>
+                  <input type="time" class="form-control">
+                  <span class="input-group-text">結束</span>
+                  <input type="time" class="form-control">
+                  <button type="button" onclick="send_invitation()" class="btn btn-primary vote-result">新增公告</button>
                 </div>
-              </td>
-              <td>2
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>3
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>4
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>5
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>6
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>7
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>8
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>9
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>10
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>11
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>12
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>13
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>14
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>15
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>16
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>17
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>18
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>19
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>20
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>21
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>22
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>23
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>24
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>25
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>26
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>27
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>28
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>29
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>30
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>31
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-              <td>
-                <div class="calendar_add_btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -678,33 +405,37 @@
 
   </div>
 </div>
-<div class="mt-3 container-fluid page3">
-  <div class="row justify-content-center">
-    <div class="col-3">
-      <div class="card main_data">
+<div class="container-fluid page3">
+  <div class="row fixHeight">
+    <div class="col-3 p-3">
+      <div class="card main_data viewer">
+        <p>觀看頻均人數</p>
+        <span>4315</span>
+      </div>
+    </div>
+    <div class="col-3 p-3">
+      <div class="card main_data viewCount">
+        <p>觀看總時長</p>
+        <span>8135</span>
+      </div>
+    </div>
+    <div class="col-3 p-3">
+      <div class="card main_data subscription">
+        <p>訂閱人數</p>
+        <span>800</span>
 
       </div>
     </div>
-    <div class="col-3">
-      <div class="card main_data">
-
+    <div class="col-3 p-3">
+      <div class="card main_data income">
+        <p>營利</p>
+        <span>451.63</span>
       </div>
     </div>
-    <div class="col-3">
-      <div class="card main_data">
+    <div class="col-12 p-3 dataTable">
+      <div id="chart1" class="card">
 
       </div>
-    </div>
-    <div class="col-3">
-      <div class="card main_data">
-
-      </div>
-    </div>
-    <div class=" col-6">
-      <div id="chart1"></div>
-    </div>
-    <div class=" col-6">
-      <div id="chart2"></div>
     </div>
   </div>
 
@@ -714,8 +445,8 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  var chart = c3.generate({
-    bindto: '#chart',
+  let chart1 = c3.generate({
+    bindto: '#chart1',
     data: {
       columns: [
         ['data1', 30, 200, 100, 400, 150, 250],
