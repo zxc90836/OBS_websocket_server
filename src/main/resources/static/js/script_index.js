@@ -37,7 +37,6 @@
 
             $.each(result,function(index,value) {
                 var insert_member_HTML = "";
-                console.log(value.memberName);
                 insert_member_HTML += `
                 <div class="collaborator">
                     <img src="../picture/people.png" class="channel-icon" alt="">
@@ -53,7 +52,6 @@
                         <span></span>
                     </div>
                 </div>`;
-                console.log(insert_member_HTML);
                 $("#collaboratorRoom_body").append(insert_member_HTML);
             });
             $('.edit_button_collaborator').click(function (e) {
@@ -94,14 +92,15 @@
         showSchedule();
         showMember();
 
-        $("#sceneList").html("");
+        $(".sceneList").html("");
         $.getJSON(pending_url,function(result){
             $.each(result,function(index,value){
+                console.log(value);
                 var insert_pending_HTML = "";
                 insert_pending_HTML +=
                     '<a id="16" href="#" class="list-group-item list-group-item-action changeSceneButton">'+value+'</a>';
 
-                $("#sceneList").append(insert_pending_HTML);
+                $(".sceneList").append(insert_pending_HTML);
             });
             $(".changeSceneButton").click(function (e) {
                 //var change_url = "http://140.121.196.20:55304/OBS_websocket/change_scene?key=";
