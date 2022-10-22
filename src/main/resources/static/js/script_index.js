@@ -73,27 +73,10 @@
         });
     }
     function getStreamSource(){
-        let url = "../getMember?team="+sessionStorage.getItem("controll");
+        let url = "../get_StreamingVideo?key="+sessionStorage.getItem("controll");
         $.getJSON(url,function(result){
-            $.each(result,function(index,value) {
-                var insert_member_HTML = "";
-                insert_member_HTML += `
-                <div class="collaborator">
-                    <img src="../picture/people.png" class="channel-icon" alt="">
-                    <div class="info">
-                        <h4 class="name">${value.memberName}</h4>
-                        <span class="${value.remoteControl?"active":""} authority">遠端控制</span>
-                        <span class="${value.dataAnalysis?"active":""} authority">數據分析</span>
-                        <span class="${value.teamManagement?"active":""} authority">團隊管理</span>
-                    </div>
-                    <div id="collaborator1_channelID" class="edit_button_collaborator">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>`;
-                $("#collaboratorRoom_body").append(insert_member_HTML);
-            });
+            console.log("https://www.youtube.com/embed/"+result);
+            $(".stream_displayBox").attr("src","https://www.youtube.com/embed/"+result);
         });
     }
     //jquery
@@ -117,8 +100,8 @@
         var insert_pending_HTML = "";
         showSchedule();
         showMember();
-
-        stream_displayBox
+        getStreamSource();
+        setTimeout("getStreamSource()", 2000);
         $(".sceneList").html("");
         $.getJSON(pending_url,function(result){
             $.each(result,function(index,value){
@@ -140,7 +123,7 @@
         $("#log_out_btn").click(function (){
             sessionStorage.removeItem("user");
             sessionStorage.removeItem("control");
-            window.location.href="../html/loginPage.html.html";
+            window.location.href="../html/loginPage.html";
         })
         $("#add_schedule_btn").click(function (){
             let team = sessionStorage.getItem("controll");

@@ -38,7 +38,7 @@
         var sec = parseInt($('#timeLimit').val()) * 60;
         votingInfo.timeLimit   = sec; // 尚未建立
         //votingInfo.pollAccount = sessionStorage.getItem("user"); // 尚未建立
-        votingInfo.pollAccount ="00857027@email.ntou.edu.tw";
+        votingInfo.pollAccount =sessionStorage.getItem("controll");
         votingInfo.question  = $('#votingQuestion').val();
         let tempMap = new Map();
         //console.log($("#serial" + serial).val());

@@ -220,6 +220,13 @@ public class LoginService {
         }
         return false;
     }
+    public Video getVideoFromDB(String videoID){
+        Query query = new Query(Criteria.where("_id").is(videoID));
+        Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+        if(result!=null)
+            return result;
+        return null;
+    }
     public List<Video> getAllVideoFromDB(String ytAccount){
         Query query = new Query(Criteria.where("ytAccount").is(ytAccount)).limit(10);
         List<Video> result = mongoTemplate.find(query, Video.class, VideoCollection);
@@ -294,5 +301,4 @@ public class LoginService {
         log.info("delete LiveChatMessage--------------------");
         return DeleteLiveChatMessage.deleteLiveChatMessage(id);
     }
-
 }

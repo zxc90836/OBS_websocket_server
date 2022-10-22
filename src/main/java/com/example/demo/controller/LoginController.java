@@ -160,6 +160,11 @@ public class LoginController {
     public String deleteLiveChatMessage(@RequestParam(value = "id", defaultValue = "") String id){
         return service.deleteLiveChatMessage(id);
     }
+    @GetMapping("/getVideoFromDB")//../getVideoFromDB?key=YL471T6LkMA
+    //http://140.121.196.20:55304/Youtube_API/get_myVideos
+    public Video getVideoFromDB(@RequestParam(value = "key", defaultValue = "") String videoID){
+        return service.getVideoFromDB(videoID);
+    }
     @GetMapping("/getAllVideoFromDB")//../getAllVideoFromDB?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public List<Video> getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
