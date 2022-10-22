@@ -236,7 +236,7 @@
                             <button type="button" class="btn btn-primary check-to-revise" style="display: none">確定修改權限</button>
                         </div>
                         <span class=""></span>
-                        <div class="collaboratorRoom_body">
+                        <div id = "collaboratorRoom_body" class="collaboratorRoom_body">
                             <div class="collaborator">
                                 <img src="../picture/people.png" class="channel-icon" alt="">
                                 <div class="info">
@@ -292,8 +292,9 @@
                             <div class="invite_input">
                                 <div class="input-group">
                                     <span class="input-group-text">協作者</span>
-                                    <input type="text" class="form-control" placeholder="帳號">
-                                    <button type="button" onclick="send_invitation()" class="btn btn-primary vote-result">加入</button>
+                                    <input id = "add_member_account" type="text" class="form-control" placeholder="帳號">
+                                    <button id = "add_member_btn" type="button" class="btn btn-primary vote-result">加入
+                                    </button>
 
                                 </div>
 
@@ -315,7 +316,7 @@
                             <!--              <button type="button" class="btn btn-primary">新增公告</button>-->
                         </div>
                         <span class=""></span>
-                        <div class="bulletinBoard_body">
+                        <div id = "schedule_container"class="bulletinBoard_body">
                             <div class="bulletinBoard">
                                 <div class="info">
                                     <h4 class="content">工商直播前會議</h4>
@@ -366,16 +367,18 @@
                             <div class="invite_input">
                                 <div class="input-group">
                                     <span class="input-group-text">公告</span>
-                                    <input type="text" class="form-control" placeholder="內容">
+                                    <input id="schedule_contain" type="text" class="form-control" placeholder="內容">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-text">日期</span>
-                                    <input type="date" class="form-control">
+                                    <input id="schedule_date" type="date" class="form-control">
                                     <span class="input-group-text">開始</span>
-                                    <input type="time" class="form-control">
+                                    <input id="schedule_startTime" type="time" class="form-control">
                                     <span class="input-group-text">結束</span>
-                                    <input type="time" class="form-control">
-                                    <button type="button" onclick="send_invitation()" class="btn btn-primary vote-result">新增公告</button>
+                                    <input id="schedule_endTime" type="time" class="form-control">
+                                    <button id="add_schedule_btn" type="button"
+                                            class="btn btn-primary vote-result">新增公告
+                                    </button>
                                 </div>
                             </div>
                         </div>
