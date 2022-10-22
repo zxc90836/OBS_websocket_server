@@ -234,7 +234,7 @@ public class LoginService {
         }
         return null;
     }
-    public String getAllVideoData(){
+    public String getAllVideoData(String ytAccount){
         log.info("get all my videos--------------------");
         List<PlaylistItem> myVideos = GetAllVideos.getAllVideos();
 
@@ -245,6 +245,7 @@ public class LoginService {
             Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
             if(result == null){
                 Video newVideo = getVideoInfo.getVideoInfo(playlistItem.getContentDetails().getVideoId());
+                newVideo.setYtAccount(ytAccount);
                 mongoTemplate.save(newVideo);
                 result = mongoTemplate.findOne(query, Video.class, VideoCollection);
                 if(result == null) return null;

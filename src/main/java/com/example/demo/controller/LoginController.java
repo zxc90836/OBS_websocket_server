@@ -167,8 +167,8 @@ public class LoginController {
     }
     @GetMapping("/get_myVideos")//../Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
-    public String getMyVideos(){
-        return service.getAllVideoData();
+    public String getMyVideos(@RequestParam(value = "key", defaultValue = "") String ytAccount){
+        return service.getAllVideoData(ytAccount);
     }
 
     @GetMapping("/get_comments")//../Youtube_API/get_myVideos
@@ -185,9 +185,25 @@ public class LoginController {
     }
     @GetMapping("/get_voteResult")//../OBS_websocket/get_voteResult"
     //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
-    public String getVoteResult(@RequestBody VoteData voteData){
-        ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData");
-        return "success";
+    public String getVoteResult(@RequestBody VoteData voteData) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData " + voteData.getPollAccount());
+        return mapper.writeValueAsString(ClientMap.getVoteData().get(voteData.getPollAccount()));
+    }
+    @GetMapping("/get_channelData")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+    public String getChannelData(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ClientMap.sendMSGToOBSServer(account,"getChannelData " + account);
+        return mapper.writeValueAsString(ClientMap.getChannelData().get(account));
+    }
+
+    @GetMapping("/get_StreamingVideo")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+    public String getStreamingVideo(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ClientMap.sendMSGToOBSServer(account,"getStreamingVideo " + account);
+        return mapper.writeValueAsString(ClientMap.getStreamingData().get(account));
     }
     /*
     public static void main(String args[]) throws IOException {
