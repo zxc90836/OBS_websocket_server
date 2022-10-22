@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -159,17 +160,27 @@ public class LoginController {
     public String deleteLiveChatMessage(@RequestParam(value = "id", defaultValue = "") String id){
         return service.deleteLiveChatMessage(id);
     }
-
+    @GetMapping("/getVideoFromDB")//../getVideoFromDB?key=YL471T6LkMA
+    //http://140.121.196.20:55304/Youtube_API/get_myVideos
+    public Video getVideoFromDB(@RequestParam(value = "key", defaultValue = "") String videoID){
+        return service.getVideoFromDB(videoID);
+    }
+    @GetMapping("/getAllVideoFromDB")//../getAllVideoFromDB?key=YL471T6LkMA
+    //http://140.121.196.20:55304/getAllVideoFromDB?key=YL471T6LkMA
+    public List<Video> getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
+        return service.getAllVideoFromDB(ytAccount);
+    }
     @GetMapping("/get_video")//../Youtube_API/get_video?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
     public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
         return service.getVideoData(key);
     }
-    @GetMapping("/get_myVideos")//../Youtube_API/get_myVideos
+    @GetMapping("/get_myVideos")//../get_myVideos?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
-    public String getMyVideos(){
-        return service.getAllVideoData();
+    public String getMyVideos(@RequestParam(value = "key", defaultValue = "") String ytAccount){
+        return service.getAllVideoData(ytAccount);
     }
+
 
     @GetMapping("/get_comments")//../Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
@@ -183,11 +194,27 @@ public class LoginController {
         ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"startVote " + mapper.writeValueAsString(voteData));
         return "success";
     }
-    @GetMapping("/get_voteResult")//../OBS_websocket/get_voteResult"
+    @PostMapping("/get_voteResult")//../OBS_websocket/get_voteResult"
     //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
-    public String getVoteResult(@RequestBody VoteData voteData){
-        ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData");
-        return "success";
+    public String getVoteResult(@RequestBody VoteData voteData) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData " + voteData.getPollAccount());
+        return mapper.writeValueAsString(ClientMap.getVoteData().get(voteData.getPollAccount()));
+    }
+    @GetMapping("/get_channelData")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+    public String getChannelData(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ClientMap.sendMSGToOBSServer(account,"getChannelData " + account);
+        return mapper.writeValueAsString(ClientMap.getChannelData().get(account));
+    }
+
+    @GetMapping("/get_StreamingVideo")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+    public String getStreamingVideo(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ClientMap.sendMSGToOBSServer(account,"getStreamingVideo " + account);
+        return mapper.writeValueAsString(ClientMap.getStreamingData().get(account));
     }
     /*
     public static void main(String args[]) throws IOException {

@@ -72,6 +72,13 @@
             });
         });
     }
+    function getStreamSource(){
+        let url = "../get_StreamingVideo?key="+sessionStorage.getItem("controll");
+        $.getJSON(url,function(result){
+            console.log("https://www.youtube.com/embed/"+result);
+            $(".stream_displayBox").attr("src","https://www.youtube.com/embed/"+result);
+        });
+    }
     //jquery
     $(document).ready(function (){
         $(".page-button").click(function (e) {
@@ -85,13 +92,16 @@
             /*$(".card_show").css("display", "");
             $(".black_background").css("display", "");*/
         });
+        let user = JSON.parse(sessionStorage.getItem("user"));
+        $("#userName").html(user.userName);
         var Key = sessionStorage.getItem("controll");
         //var pending_url = "http://140.121.196.20:55304/OBS_websocket/get_scenes?key="+Key;
         var pending_url= "../OBS_websocket/get_scenes?key="+Key;
         var insert_pending_HTML = "";
         showSchedule();
         showMember();
-
+        getStreamSource();
+        setTimeout("getStreamSource()", 2000);
         $(".sceneList").html("");
         $.getJSON(pending_url,function(result){
             $.each(result,function(index,value){
@@ -110,6 +120,11 @@
                 //$.get("http://140.121.196.20:55304/OBS_websocket/change_scene?key=4908795&scene=場景");
             });
         });
+        $("#log_out_btn").click(function (){
+            sessionStorage.removeItem("user");
+            sessionStorage.removeItem("control");
+            window.location.href="../html/loginPage.html";
+        })
         $("#add_schedule_btn").click(function (){
             let team = sessionStorage.getItem("controll");
             let date = $("#schedule_date").val();

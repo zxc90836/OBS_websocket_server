@@ -1,57 +1,91 @@
 // 此為回到最上層按鈕的JS
 {
     const video_focus = document.querySelector('.video-focus');
+    const videoCount = document.querySelector('#videoCount');
+    const viewCount = document.querySelector('#viewCount');
+    const subscriberCount = document.querySelector('#subscriberCount');
+    const estimatedRevenue = document.querySelector('#estimatedRevenue');
+    //http://127.0.0.1:55304/getAllVideoFromDB?key=ethanhuang6@gmail.com
+    //http://127.0.0.1:55304/getVideoFromDB?key=hdxhntMgNcM
+    let url = "../getAllVideoFromDB?key=ethanhuang6@gmail.com";
+    let channel_data_url = "../get_channelData?key=ethanhuang6@gmail.com"
     function video_details_show(target) {
         let page = target;
         console.log(page.id);
-        video_focus.innerHTML=page.id;
-    }
-    const videoCardContainer = document.querySelector('.video-container');
-
-    let api_key = "AIzaSyCf7rHaZ9g7bJWfFvHCO8f8gX7eSlbp-Ww"
-    let video_http = "https://www.googleapis.com/youtube/v3/videos?";
-    let channel_http = "https://www.googleapis.com/youtube/v3/channels?";
-
-    fetch(video_http + new URLSearchParams({
-        key:api_key,
-        part: 'snippet',
-        chart: 'mostPopular',
-        maxResults: 50,
-        regionCode: 'tw'
-    }))
-    .then(res => res.json())
-    .then(data =>{
-        // console.log(data);
-        data.items.forEach(item => {
-            getChannelIcon(item);
-        })
-    })
-    .catch(err => console.log(err));
-
-    const getChannelIcon = (video_data) => {
-        fetch(channel_http + new URLSearchParams({
-            key: api_key,
-            part: 'snippet',
-            id: video_data.snippet.channelId
-        }))
-            .then(res => res.json())
-            .then(data =>{
-                video_data.channelThumbnail = data.items[0].snippet.thumbnails.default.url;
-                makeVideoCard(video_data);
-            })
-    }
-    const  makeVideoCard = (data) => {
-        videoCardContainer.innerHTML +=`
-            <div class="video" onclick="location.href ='https://youtube.com/watch?v=${data.id}'">
-                <img src="${data.snippet.thumbnails.high.url}" class="thumbnail" alt="">
+        let targetUrl = "../getVideoFromDB?key=" + page.id;
+        console.log(targetUrl);
+        $.getJSON(targetUrl,function(result) {
+            // $.each(result, function (index, value) {
+                let insert_member_HTML = "";
+                insert_member_HTML += `
+                <img src="${result.imgURL}" class="thumbnail" alt="">
                     <div class="content">
-                        <img src="${data.channelThumbnail}" class="channel-icon" alt="">
                         <div class="info">
-                            <h4 class="title">${data.snippet.title}</h4>
-                            <p class="channel-name">${data.snippet.channelTitle}</p>
+                            <h4 class="title"></h4>
+                            <div class="p-2 bg-white text-black rounded">
+                                <h3>影片標題 : ${result.title}</h3>
+                            </div>
+                            <div class="mt-1 p-3 bg-white text-black rounded">
+                                <h3>敘述:</h3>
+                                <p>${result.description}</p>
+                            </div>
+                            <div class="video-details-table">
+                                <div class="video-card card">
+                                    <p>上傳狀態</p>
+                                    <span>${result.uploadStatus}</span>
+                                </div>
+                                <div class="video-card card">
+                                    <p>點讚人數</p>
+                                    <span>${result.likeCount}</span>
+                                </div>
+                                <div class="video-card card">
+                                    <p>討厭人數</p>
+                                    <span>${result.dislikeCount}</span>
+                                </div>
+                                <div class="video-card card">
+                                    <p>觀看人數</p>
+                                    <span>${result.viewCount}</span>
+                                </div>
+                                <div class="video-card card">
+                                    <p>留言數</p>
+                                    <span>${result.commentCount}</span>
+                                </div>
+                                <!--                    <div class="video-card card">-->
+                                <!--                      <p>tags</p>-->
+                                <!--                      <span>4315</span>-->
+                                <!--                    </div>-->
+                            </div>
                         </div>
                     </div>
-            </div>
-        `
+                    `;
+                video_focus.innerHTML = ""
+                $(".video-focus").append(insert_member_HTML);
+            // });
+        });
     }
+    //剛進頁面時刷新
+    $.getJSON(channel_data_url,function(result) {
+        // $.each(result, function (index, value) {
+            videoCount.innerHTML="${result.videoCount}";
+            viewCount.innerHTML="${result.viewCount}";
+            subscriberCount.innerHTML="${result.subscriberCount}";
+            estimatedRevenue.innerHTML="${result.estimatedRevenue}";
+        // });
+    });
+    $.getJSON(url,function(result) {
+        $.each(result, function (index, value) {
+            let insert_member_HTML = "";
+            insert_member_HTML += `
+                    <div class="video" id="${value.id}" onclick="video_details_show(this)">
+                        <img src="${value.imgURL}" class="thumbnail" alt="">
+                        <div class="content">
+                            <div class="info">
+                                <h4 class="title">${value.title}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+            $(".video-container").append(insert_member_HTML);
+        });
+    });
 }
