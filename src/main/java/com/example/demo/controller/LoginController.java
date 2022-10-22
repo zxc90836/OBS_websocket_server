@@ -51,6 +51,11 @@ public class LoginController {
         log.info("sign up");
         return service.signUp(request.userName,request.password,request.youtubeAccount);
     }
+    @GetMapping("/getTeam")//http://127.0.0.1:55304/getTeam
+    public Team getTeam(@RequestParam(value = "teamName", defaultValue = "") String teamName){
+        log.info("getTeam");
+        return service.getTeam(teamName);
+    }
     @GetMapping("/getColab")//http://127.0.0.1:55304/getColab?account=owner
     public Map<String,String> getColab(@RequestParam(value = "account", defaultValue = "")String account){
         return service.getColab(account);
