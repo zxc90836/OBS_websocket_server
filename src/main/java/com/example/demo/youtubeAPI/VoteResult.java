@@ -1,15 +1,19 @@
 package com.example.demo.youtubeAPI;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VoteResult {
     private Map<String,String> voteResult = new HashMap<>();
 
     private Map<String, Integer> voteCount = new HashMap<>();
 
     private String question;
+
     private boolean endFlag = false;
 
     public String getQuestion() {
@@ -25,10 +29,11 @@ public class VoteResult {
             this.voteCount.put(options.get(i),0);
         }
     }
+    public VoteResult() {
 
+    }
 
-
-    public void addVoteCount(String option,int number){
+    public void addVoteCount(String option, int number){
         int oldNumber = this.voteCount.get(option);
         this.voteCount.replace(option,oldNumber+number);
     }

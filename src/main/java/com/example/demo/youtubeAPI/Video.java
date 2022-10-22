@@ -13,6 +13,7 @@ import java.util.Map;
 public class Video {
     private String id;
     private String title;
+    private String ytAccount;
     private String description;
     private String imgURL;
     private BigInteger likeCount;
@@ -165,11 +166,20 @@ public class Video {
         this.audiences = audiences;
     }
 
+    public String getYtAccount() {
+        return ytAccount;
+    }
+
+    public void setYtAccount(String ytAccount) {
+        this.ytAccount = ytAccount;
+    }
+
     @Override
     public String toString() {
         return "Video{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
+                ", ytAccount='" + ytAccount + '\'' +
                 ", description='" + description + '\'' +
                 ", imgURL='" + imgURL + '\'' +
                 ", likeCount=" + likeCount +

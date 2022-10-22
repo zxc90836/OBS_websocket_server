@@ -1,8 +1,11 @@
 package com.example.demo;
 
+import com.example.demo.youtubeAPI.ChannelData;
+import com.example.demo.youtubeAPI.VoteResult;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +14,8 @@ public class ClientMap {
     private static Map<String,Object> OBSServerMap = new HashMap<>();
     private static Map<String,String> OBSScenes = new HashMap<>();
     private static Map<Object,String> controlClientMap = new HashMap<>();
+    private static Map<String,Object> voteData = new HashMap<>();
+    private static Map<String,Object> channelData = new HashMap<>();
     public static String getScenes(String key){
         return OBSScenes.get(key);
     }
@@ -57,6 +62,39 @@ public class ClientMap {
         }
         return true;
     }
+
+    public static boolean addVoteData(ChannelHandlerContext ctx, VoteResult result){
+        String ytAccount = "";
+        for (Map.Entry<String, Object> entry : OBSServerMap.entrySet()) {
+            if(entry.getValue() == ctx){
+                ytAccount = entry.getKey();
+                break;
+            }
+        }
+        if(voteData.containsKey(ytAccount) == true)
+            return false;
+        else{
+            voteData.put(ytAccount,result);
+        }
+        return true;
+    }
+
+    public static boolean addChannelData(ChannelHandlerContext ctx, ChannelData result){
+        String ytAccount = "";
+        for (Map.Entry<String, Object> entry : OBSServerMap.entrySet()) {
+            if(entry.getValue() == ctx){
+                ytAccount = entry.getKey();
+                break;
+            }
+        }
+        if(channelData.containsKey(ytAccount) == true)
+            return false;
+        else{
+            channelData.put(ytAccount,result);
+        }
+        return true;
+    }
+
     public static void sendMSGToOBSServer(ChannelHandlerContext ctx,String msg){//用控制端的ctx傳
         ChannelHandlerContext OBSserver = (ChannelHandlerContext)OBSServerMap.get(controlClientMap.get(ctx));
         OBSserver.write(msg);
@@ -82,4 +120,21 @@ public class ClientMap {
             }
         }
     }
+
+    public static Map<String, Object> getVoteData() {
+        return voteData;
+    }
+
+    public static void setVoteData(Map<String, Object> voteData) {
+        ClientMap.voteData = voteData;
+    }
+
+    public static Map<String, Object> getChannelData() {
+        return channelData;
+    }
+
+    public static void setChannelData(Map<String, Object> channelData) {
+        ClientMap.channelData = channelData;
+    }
+
 }

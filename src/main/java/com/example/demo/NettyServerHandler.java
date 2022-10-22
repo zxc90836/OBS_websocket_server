@@ -1,8 +1,11 @@
 package com.example.demo;
 
+import com.example.demo.youtubeAPI.ChannelData;
+import com.example.demo.youtubeAPI.VoteResult;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
+import org.codehaus.jackson.map.ObjectMapper;
 
 @Slf4j
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
@@ -20,6 +23,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("伺服器收到訊息: {}", msg.toString());
+        ObjectMapper mapper = new ObjectMapper();
         String temp = msg.toString();
         String type = msg.toString();
         String cmd = "";
@@ -41,6 +45,15 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             case "controlClientCmd":
                 ClientMap.sendMSGToOBSServer(ctx,cmd);
                 log.info("controlClientCmd");
+                break;
+            case "addVoteData":
+                VoteResult v = mapper.readValue(cmd,VoteResult.class);
+                ClientMap.addVoteData(ctx,v);
+                break;
+            case "addChannelData":
+                System.out.println(cmd);
+                ChannelData d = mapper.readValue(cmd,ChannelData.class);
+                ClientMap.addChannelData(ctx,d);
                 break;
             default:
                 ctx.write("我是服務端，格式錯誤，無此服務！");
