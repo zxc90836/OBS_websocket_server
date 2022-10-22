@@ -21,7 +21,7 @@
         });
         var Key = sessionStorage.getItem("controll");
         //var pending_url = "http://140.121.196.20:55304/OBS_websocket/get_scenes?key="+Key;
-        var pending_url= "http://127.0.0.1:55304/OBS_websocket/get_scenes?key="+Key;
+        var pending_url= "../OBS_websocket/get_scenes?key="+Key;
         var insert_pending_HTML = "";
 
         $("#sceneList").html("");
@@ -35,7 +35,7 @@
             });
             $(".changeSceneButton").click(function (e) {
                 //var change_url = "http://140.121.196.20:55304/OBS_websocket/change_scene?key=";
-                let change_url = "http://127.0.0.1:55304/OBS_websocket/change_scene?key=";
+                let change_url = "../OBS_websocket/change_scene?key=";
                 $.get(change_url+ Key +"&scene="+e.target.text);
                 console.log(change_url+ Key +"&scene="+e.target.text);
                 //$.get("http://140.121.196.20:55304/OBS_websocket/change_scene?key=4908795&scene=場景");

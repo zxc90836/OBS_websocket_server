@@ -30,13 +30,13 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     @Autowired
     private LoginService service = new LoginService();
-    @GetMapping("/user")//http://127.0.0.1:55304/user
+    @GetMapping("/user")//../user
     public Object getUser(){
         return service.createTeam();
     }
     //回傳可選擇的團隊
-    @PostMapping("/login")//http://127.0.0.1:55304/login?account=owner&password=password
-    //http://127.0.0.1:55304/login?account=colab&password=password2
+    @PostMapping("/login")//../login?account=owner&password=password
+    //../login?account=colab&password=password2
     @ResponseBody
     public User login(@RequestBody User request){
         User user = service.login(request.getUserName(),request.getPassword());
@@ -45,22 +45,22 @@ public class LoginController {
         }
         return user;
     }
-    @PostMapping("/signUp")//http://127.0.0.1:55304/signUp
+    @PostMapping("/signUp")//../signUp
     @ResponseBody
     public User signUp(@RequestBody SignUpData request){
         log.info("sign up");
         return service.signUp(request.userName,request.password,request.youtubeAccount);
     }
-    @GetMapping("/getTeam")//http://127.0.0.1:55304/getTeam
+    @GetMapping("/getTeam")//../getTeam
     public Team getTeam(@RequestParam(value = "teamName", defaultValue = "") String teamName){
         log.info("getTeam");
         return service.getTeam(teamName);
     }
-    @GetMapping("/getColab")//http://127.0.0.1:55304/getColab?account=owner
+    @GetMapping("/getColab")//../getColab?account=owner
     public Map<String,String> getColab(@RequestParam(value = "account", defaultValue = "")String account){
         return service.getColab(account);
     }
-    @GetMapping("/getSchedule")//http://127.0.0.1:55304/getSchedule?team=00000@gmail.com
+    @GetMapping("/getSchedule")//../getSchedule?team=00000@gmail.com
     public Map<String, Schedule> getSchedule(@RequestParam(value = "team", defaultValue = "")String team){
         return service.getSchedule(team);
     }
@@ -71,7 +71,7 @@ public class LoginController {
 //            "streamSchedule": "要死了"
 //
 //    }
-    @PostMapping("/setSchedule")//http://127.0.0.1:55304/setSchedule
+    @PostMapping("/setSchedule")//../setSchedule
     @ResponseBody
     public boolean setSchedule(@RequestBody SetScheduleData request){
         log.info("setSchedule"+request);
@@ -79,50 +79,50 @@ public class LoginController {
         s.setSchedule(request);
         return service.setSchedule(request.team,s);
     }
-    @PostMapping("/deleteSchedule")//http://127.0.0.1:55304/deleteSchedule
+    @PostMapping("/deleteSchedule")//../deleteSchedule
     @ResponseBody
     public boolean deleteSchedule(@RequestBody SetScheduleData request){
         log.info("deleteSchedule"+request);
         return service.deleteSchedule(request.team,request.date);
     }
-    @PostMapping("/addMember")//http://127.0.0.1:55304/addMember
+    @PostMapping("/addMember")//../addMember
     @ResponseBody
     public boolean addMember(@RequestBody MemberPermission request){
         log.info("addMember"+request);
         return service.addMember(request);
     }
-    @PostMapping("/modifyPermission")//http://127.0.0.1:55304/modifyPermission
+    @PostMapping("/modifyPermission")//../modifyPermission
     @ResponseBody
     public boolean modifyPermission(@RequestBody MemberPermission request){
         log.info("modifyPermission"+request);
         return service.addMember(request);
     }
-    @PostMapping("/deleteMember")//http://127.0.0.1:55304/deleteMember
+    @PostMapping("/deleteMember")//../deleteMember
     @ResponseBody
     public boolean deleteMember(@RequestBody MemberPermission request){
         log.info("deleteMember"+request);
         return service.deleteMember(request);
     }
 
-    @GetMapping("/get_streamingChat")//http://127.0.0.1:55304/Youtube_API/get_streamingChat
+    @GetMapping("/get_streamingChat")//../Youtube_API/get_streamingChat
     //http://140.121.196.20:55304/Youtube_API/get_streamingChat
     public String getStreamingChat(){
         return service.getLiveChatMessage();
     }
 
-    @GetMapping("/get_SC")//http://127.0.0.1:55304/Youtube_API/get_SC
+    @GetMapping("/get_SC")//../Youtube_API/get_SC
     //http://140.121.196.20:55304/Youtube_API/get_SC
     public String getSC(){
         return service.getSCDetail();
     }
 
-    @GetMapping("/get_relatedVideo")//http://127.0.0.1:55304/Youtube_API/get_relatedVideo?key=YL471T6LkMA
+    @GetMapping("/get_relatedVideo")//../Youtube_API/get_relatedVideo?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_relatedVideo?key=YL471T6LkMA
     public String getRelatedVideo(@RequestParam(value = "key", defaultValue = "") String key){
         return service.getRelatedVideo(key);
     }
 
-    @GetMapping("/get_videoHistory")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    @GetMapping("/get_videoHistory")//../Youtube_API/getChannelHistory?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
     public String getVideoHistory(@RequestParam(value = "id", defaultValue = "") String id,
                                   @RequestParam(value = "start", defaultValue = "") String start,
@@ -130,56 +130,56 @@ public class LoginController {
         return service.getVideoHistory(id,start,end);
     }
 
-    @GetMapping("/get_channelHistory")//http://127.0.0.1:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
+    @GetMapping("/get_channelHistory")//../Youtube_API/getChannelHistory?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
     public String getChannelHistory(@RequestParam(value = "start", defaultValue = "") String start,
                                     @RequestParam(value = "end", defaultValue = "") String end){
         return service.getChannelHistory(start,end);
     }
 
-    @PostMapping(value = "/add_LiveChatModerators")//http://127.0.0.1:55304/Youtube_API/addLiveChatModerators?id=
+    @PostMapping(value = "/add_LiveChatModerators")//../Youtube_API/addLiveChatModerators?id=
     //http://140.121.196.20:55304/Youtube_API/addLiveChatModerators?id=
     public String addLiveChatModerators(@RequestParam(value = "id", defaultValue = "") String id){
         return service.addLiveChatModerators(id);
     }
 
-    @PostMapping(value = "/ban_LiveChatUser")//http://127.0.0.1:55304/Youtube_API/banLiveChatUser?id=
+    @PostMapping(value = "/ban_LiveChatUser")//../Youtube_API/banLiveChatUser?id=
     //http://140.121.196.20:55304/Youtube_API/banLiveChatUser?id=
     public String banLiveChatUser(@RequestParam(value = "id", defaultValue = "") String id,
                                   @RequestParam(value = "time", defaultValue = "") BigInteger time){
         return service.banLiveChatUser(id,time);
     }
 
-    @PostMapping(value = "/delete_LiveChatMessage")//http://127.0.0.1:55304/Youtube_API/deleteLiveChatMessage?id=
+    @PostMapping(value = "/delete_LiveChatMessage")//../Youtube_API/deleteLiveChatMessage?id=
     //http://140.121.196.20:55304/Youtube_API/deleteLiveChatMessage?id=
     public String deleteLiveChatMessage(@RequestParam(value = "id", defaultValue = "") String id){
         return service.deleteLiveChatMessage(id);
     }
 
-    @GetMapping("/get_video")//http://127.0.0.1:55304/Youtube_API/get_video?key=YL471T6LkMA
+    @GetMapping("/get_video")//../Youtube_API/get_video?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
     public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
         return service.getVideoData(key);
     }
-    @GetMapping("/get_myVideos")//http://127.0.0.1:55304/Youtube_API/get_myVideos
+    @GetMapping("/get_myVideos")//../Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public String getMyVideos(){
         return service.getAllVideoData();
     }
 
-    @GetMapping("/get_comments")//http://127.0.0.1:55304/Youtube_API/get_myVideos
+    @GetMapping("/get_comments")//../Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public String getComments(@RequestParam(value = "key", defaultValue = "") String key){
         return service.getComment(key);
     }
-    @PostMapping(value = "/start_vote") //http://127.0.0.1:55304/start_vote
+    @PostMapping(value = "/start_vote") //../start_vote
     public String startVote(@RequestBody VoteData voteData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
         ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"startVote " + mapper.writeValueAsString(voteData));
         return "success";
     }
-    @GetMapping("/get_voteResult")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    @GetMapping("/get_voteResult")//../OBS_websocket/get_voteResult"
     //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
     public String getVoteResult(@RequestBody VoteData voteData){
         ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData");
