@@ -2,7 +2,6 @@ html,body{
   height: 100%;
   padding: 0;
   margin: 0;
-
   //background: #f0f0f0;
   background: #f0f0f0;
   font-family: roboto, sans-serif;
@@ -45,22 +44,28 @@ html,body{
     }
   }
 }
+.container-fluid{
+  height: calc(100% - 72px - 2rem);
+}
 .collaborator_info_body{
   /*height: 80%;
   border-radius: 20px;
   background-color: #e6e6e6;//#f6f6f6*/
+  height: 100%;
   .col-4{
     .left{
-      margin: 2rem;
+      height: 100%;
+      margin: 2rem 0 2rem 2rem ;
       .collaborator_list{
         //border: 2px black solid;
         width: 100%;
-        height: 422px;
+        height: calc(100% - 4rem);
         border: 1px solid #ddd;
 
         .collaborator_room{
           float: left;
           width: 100%;
+          height: 100%;
           right: 0;
           margin: 0px;
           position: relative;
@@ -69,8 +74,8 @@ html,body{
             width: auto;
             padding: 12px;
             background-color: #ffffff;
-            border-bottom: 1px solid rgba(80,80,80,0.3);
             display: flex;
+            border-bottom: 1px solid rgba(80,80,80,0.3);
             justify-content: space-between;
             .invite_input{
               //border: 2px black solid;
@@ -80,9 +85,10 @@ html,body{
           }
           .collaboratorRoom_body{
             overflow: scroll;
-            height: 300px;
+            height: calc(100% - 121px);
             overflow-x: hidden;
             position: relative;
+            background-color: #f9f9f9;
 
             .collaborator{
               width: 100%;
@@ -177,10 +183,9 @@ html,body{
             width: auto;
             padding: 6px;
             background-color: #ffffff;
-            border-bottom: 1px solid rgba(80,80,80,0.3);
+            border-top: 1px solid rgba(80,80,80,0.3);
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
             .invite_input {
               //border: 2px black solid;
               width: 100%;
@@ -189,49 +194,73 @@ html,body{
           }
         }
       }
-
-      .notification_info{
-        //padding: 0.5rem;
-        border: 2px black solid;
-        height: 342px;
-        overflow: scroll;
-        background-color: #f1f1f1;
-        table{
-          table-layout : fixed;
-          width: 100%;
-          border-collapse: collapse;
-          th, td {
-            border-bottom: 2px solid #ddd;
-          }
-
-        }
-      }
     }
   }
   .col-8{
     .right{
-      margin: 2rem;
-      h1{
-        margin-top: 2rem;
-        border-bottom: 2px black solid;
-        height: 20%;
-      }
-      .calendar{
-        margin-top: 2rem;
-        table{
+      height: 100%;
+      margin: 2rem 0 2rem 2rem ;
+      .bulletinBoard_list{
+        //border: 2px black solid;
+        width: 100%;
+        height: calc(100% - 4rem);
+        border: 1px solid #ddd;
+
+        .bulletinBoard_room{
+          float: left;
           width: 100%;
-          overflow: hidden;
-          thead{
-            th{
+          height: 100%;
+          right: 0;
+          margin: 0px;
+          position: relative;
+          .bulletinBoard_header{
+            font-size: 30px;
+            width: auto;
+            padding: 12px;
+            background-color: bisque;
+            border-bottom: 1px solid rgba(80,80,80,0.3);
+            display: flex;
+            justify-content: space-between;
+            .invite_input{
+              //border: 2px black solid;
+              width: 100%;
+              //padding: 0.5rem;
             }
           }
-          tbody{
-            td{
-
-              height: 7rem;
-              border: 2px solid black;
+          .bulletinBoard_body{
+            overflow: scroll;
+            height: calc(100% - 159px);
+            overflow-x: hidden;
+            position: relative;
+            background-color: #ffffff;
+            .bulletinBoard{
+              width: 100%;
+              max-height: 60px;
+              padding: 10px;
+              display: flex;
               position: relative;
-              vertical-align: top;
+              //justify-content: space-evenly;
+              .channel-icon{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 10px;
+              }
+              .info{
+                .content{
+                  width: 100%;
+                  max-height: 40px;
+                  overflow: hidden;
+                  margin: 0;
+                  padding: 0;
+                }
+                .time{
+                  font-size: 14px;
+                  margin: 2px 3px;
+                  color: #2f2f2f;
+                }
+              }
               &:hover{
                 .calendar_add_btn{
                   width: 25px;
@@ -270,16 +299,57 @@ html,body{
                     background-color: rgba(150,150,150,0.4);
                   }
                 }
-
               }
+
+              //&:hover{
+              //  background-color: rgba(150,150,150,0.2);
+              //}
+            }
+          }
+          .collaboratorRoom_footer{
+            font-size: 30px;
+            width: auto;
+            padding: 6px;
+            background-color: #ffffff;
+            border-top: 1px solid rgba(80,80,80,0.3);
+            display: flex;
+            justify-content: space-between;
+            .invite_input {
+              //border: 2px black solid;
+              width: 100%;
+              //padding: 0.5rem;
             }
           }
         }
       }
+      h1{
+        margin-top: 2rem;
+        border-bottom: 2px black solid;
+        height: 20%;
+      }
+
+      //.notification_info{
+      //  //padding: 0.5rem;
+      //  border: 2px black solid;
+      //  height: calc(100% - 4rem);
+      //  overflow: scroll;
+      //  background-color: #f1f1f1;
+      //  table{
+      //    table-layout : fixed;
+      //    width: 100%;
+      //    border-collapse: collapse;
+      //    th, td {
+      //      border-bottom: 2px solid #ddd;
+      //    }
+      //
+      //  }
+      //}
     }
   }
 }
-
+//.click-to-revise{
+//
+//}
 .sceneList{
   height: 130px;
   overflow: auto;
@@ -302,7 +372,6 @@ html,body{
   position: relative;
   float: left;
 }
-
 
 .chatroom{
   float: left;
@@ -403,6 +472,7 @@ html,body{
   }
 
 }
+
 /*
 .toggle_button{
   position: absolute;
@@ -468,7 +538,6 @@ html,body{
       }
     }
   }
-
 }*/
 .input-group{
   .close_button{
@@ -477,7 +546,6 @@ html,body{
     position: absolute;
     width: 30px;
     height: 30px;
-
     //background: #ffffff;
     //box-shadow: 0 10px 20px rgba(0,0,0,0.08);
     border-radius: 10px;
@@ -508,6 +576,7 @@ html,body{
   }
 }
 
+
 /*  video 21min  */
 .video-container{
   padding: 20px;
@@ -515,7 +584,6 @@ html,body{
   grid-template-columns: repeat(4, 25%);
   grid-gap: 20px 5px;
   overflow-x: hidden;
-
   .video{
     min-height: 250px;
     height: auto;
@@ -587,25 +655,55 @@ html,body{
 .page3{
   height: calc(100% - 90px);
 }
+//for dataPage color
+$viewer-color: cornflowerblue;
+$viewCount-color: forestgreen;
+$subscription-color: darkred;
+$income-color: gold;
+.viewer{
+  border-left: 14px solid $viewer-color;
+}
+.viewCount{
+  border-left: 14px solid $viewCount-color;
+}
+.subscription{
+  border-left: 14px solid $subscription-color;
+}
+.income{
+  border-left: 14px solid $income-color;
+}
 .main_data{
   margin: 2px;
   height: 150px;
   background-color: #f6f6f6;
   box-shadow: 1px 2px 0px 0px rgba(0,0,0,.08);
-}
-.viewer-color{
+  padding: 2rem;
+  p{
+    color: grey;
+    font-size: 30px;
+    margin: 0;
+  }
+  span{
+    font-size: 30px;
+    margin-left: 2rem;
+  }
 
 }
-.viewCount-color{
-
+.dataTable{
+  height: calc(100% - 258px);
+  div{
+    //padding: 2rem;
+    height: 100%;
+    background-color: #f6f6f6;
+  }
 }
-.subscription-color{
-
+.delete-link-style{
+  color: black;
+  text-decoration:none;
 }
-.subscription-color{
-
+.fixHeight{
+  height: 100%;
 }
-
 /* video end */
 //
 //.edit_button{
