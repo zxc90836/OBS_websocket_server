@@ -64,6 +64,10 @@ public class LoginController {
     public Map<String, Schedule> getSchedule(@RequestParam(value = "team", defaultValue = "")String team){
         return service.getSchedule(team);
     }
+    @GetMapping("/getMember")//../getMember?account=owner
+    public Map<String,MemberPermission> getMember(@RequestParam(value = "team", defaultValue = "")String team){
+        return service.getMember(team);
+    }
 //    {
 //        "team": "0979710326a@gmail.com",
 //            "date": "2022-10-22",

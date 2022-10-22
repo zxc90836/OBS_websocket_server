@@ -5,4 +5,6 @@ public class SetScheduleData {
     public String date;
     public String describe;
     public String streamSchedule;
+    public String startTime;
+    public String endTime;
 }

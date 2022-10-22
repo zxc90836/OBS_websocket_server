@@ -157,6 +157,16 @@ public class LoginService {
         }
         return false;
     }
+    public Map<String,MemberPermission> getMember(String team){//獲取加入的協作團隊
+        Query query = new Query(Criteria.where("youtubeAccount").is(team));
+        Team result = mongoTemplate.findOne(query, Team.class, COLLECTION_NAME);
+        if(result != null){
+            log.info("got it--------------------"+result);
+            return result.getMember();
+        }
+        log.info("null--------------------");
+        return null;
+    }
     public boolean addMember(MemberPermission memberPermission){
         Query query = new Query(Criteria.where("youtubeAccount").is(memberPermission.team));
         Query query2 = new Query(Criteria.where("userName").is(memberPermission.memberName));
@@ -246,12 +256,10 @@ public class LoginService {
         log.info("get comments--------------------" + id);
         return GetComment.getComment(id).toString();
     }
-
     public String getLiveChatMessage(){
         log.info("get liveChatMessage--------------------");
         return GetLiveChatOnce.getLiveChatOnce();
     }
-
     public String getSCDetail(){
         log.info("get SCDetail--------------------");
         return GetSCDetails.getSCDetails();

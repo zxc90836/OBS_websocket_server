@@ -48,7 +48,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         }
         ctx.write("收到訊息了！");
         ctx.flush();
-
     }
 
     /**

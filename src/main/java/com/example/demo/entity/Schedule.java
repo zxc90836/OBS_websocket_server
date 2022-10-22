@@ -4,12 +4,16 @@ public class Schedule {
     private String date;
     private String describe;
     private String streamSchedule;
+    private String startTime;
+    private String endTime;
 
 
     public void setSchedule(SetScheduleData data){
         date = data.date;
         describe = data.describe;
         streamSchedule = data.streamSchedule;
+        startTime = data.startTime;
+        endTime = data.endTime;
     }
     public String getDate() {
         return date;
@@ -33,5 +37,21 @@ public class Schedule {
 
     public void setStreamSchedule(String streamSchedule) {
         this.streamSchedule = streamSchedule;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }
