@@ -8,7 +8,7 @@
             data.userName = account;
             data.password = password;
             var jsonData = JSON.stringify(data);
-            var url = `http://127.0.0.1:55304/login`;
+            var url = `../login`;
             console.log(url);
             $.ajax({
                 type: 'POST',

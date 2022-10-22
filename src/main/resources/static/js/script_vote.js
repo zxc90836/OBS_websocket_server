@@ -63,7 +63,7 @@
         $('#startVoting').click(function (){
             var data = createVoting();
             console.log(data);
-            url = "http://127.0.0.1:55304/start_vote";
+            url = "../start_vote";
             $.ajax({
                 type: "POST",
                 url: url,

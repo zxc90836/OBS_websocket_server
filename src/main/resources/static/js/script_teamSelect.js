@@ -5,7 +5,7 @@
     $(document).ready(function (){
         var user = JSON.parse(sessionStorage.getItem("user"));
         console.log(user.userName);
-        var url = "http://127.0.0.1:55304/getColab?account="+user.userName
+        var url = "../getColab?account="+user.userName
         $.getJSON(url,function (data){
             console.log(data);
             $(".teams_container").empty();

@@ -4,7 +4,7 @@
             var account = $("#account").val();
             var password = $("#password").val();
             var ytAccount = $("#YT_account").val();
-            var url = `http://127.0.0.1:55304/signUp`;
+            var url = `../signUp`;
             var data = {};
             data.userName = account;
             data.password = password;
