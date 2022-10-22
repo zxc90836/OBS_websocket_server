@@ -194,7 +194,7 @@ public class LoginController {
         ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"startVote " + mapper.writeValueAsString(voteData));
         return "success";
     }
-    @GetMapping("/get_voteResult")//../OBS_websocket/get_voteResult"
+    @PostMapping("/get_voteResult")//../OBS_websocket/get_voteResult"
     //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
     public String getVoteResult(@RequestBody VoteData voteData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

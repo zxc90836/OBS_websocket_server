@@ -1,40 +1,14 @@
 // 此為回到最上層按鈕的JS
 import axios from "/js/axios.js";
-
 {
-    var voteEvent = {
-        question: "想要主播選哪隻英雄",
-        keywords:["a","b","c"],
-        voteResult:{
-            "a":"達瑞斯不是達瑞文也不是德萊厄斯更不是德萊文",
-            "b":"厄薩斯",
-            "c":"拉姆斯"
-        },
-        voteTime:600,
-        pollAccount:"shabi94ni",
-        voter:["花生一號","花生二號","花生三號"],
-        voterAns: {
-            "花生一號":"a",
-            "花生二號":"b",
-            "花生三號":"a"
-        }
-    }
-    console.log(voteEvent)
-    var Result = JSON.stringify(voteEvent);
-    console.log(Result)
-
-    var intervalID = setInterval(function() {
-        alert('五秒鐘又到了！');
-    }, 5000);
-
-    $(document).ready(function (){
+    function buildVoteResult(voteResult){
         var i=0;
         var voteTitle = $("#voteTitle");
-        voteTitle.append(voteEvent["question"]);
+        voteTitle.append(voteResult.question);
         var resultValueTable = $("#resultValueTable");
         var optionTable = $("#optionsTable");
         let opTemplate;
-        for(i = 0 ; i < voteEvent["keywords"].length ; i ++){
+        for(i = 0 ; i < (voteResult.voteCount).length ; i ++){
             if(voteEvent["voteResult"][voteEvent["keywords"][i]].length>5){
                 opTemplate =
                     '<div class=" mt-3" style="height: 30px;font-size: 12px;line-height: 14px">'+
@@ -52,29 +26,56 @@ import axios from "/js/axios.js";
         let voterTemplate;
         let totalVoters=voteEvent.voter.length;
         let totAns;
-        for(i = 0 ; i < voteEvent["keywords"].length ; i ++){
-            totAns=0;
-            for(let j=0;j<voteEvent["voter"].length;j++){
-                if(voteEvent["voterAns"][voteEvent["voter"][j]]==voteEvent["keywords"][i]){
+        for(i = 0 ; i < voteEvent["keywords"].length ; i ++) {
+            totAns = 0;
+            for (let j = 0; j < voteEvent["voter"].length; j++) {
+                if (voteEvent["voterAns"][voteEvent["voter"][j]] == voteEvent["keywords"][i]) {
                     totAns++;
                     console.log(totAns)
                 }
             }
-            totAns=totAns*100/totalVoters;
+            totAns = totAns * 100 / totalVoters;
             voterTemplate =
-                '<div class="progress mt-3" style="height: 30px">'+
-                '<div class="progress-bar" style="width:' + totAns.toFixed(2) + '%;height:30px">'+totAns.toFixed(2)+'%</div>'+
+                '<div class="progress mt-3" style="height: 30px">' +
+                '<div class="progress-bar" style="width:' + totAns.toFixed(2) + '%;height:30px">' + totAns.toFixed(2) + '%</div>' +
                 '</div>'
             resultValueTable.append(voterTemplate);
         }
+    }
+    function getVoteResult(){
+        let url = "../get_voteResult"
+        var data = sessionStorage.getItem("voteData");
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            success: function(data){
+                if(data!=null){
+                    let voteResult = JSON.parse(data);
+                    console.log("voteResult：   "+voteResult);
+                    console.log("voteCount：   "+voteResult.voteCount);
+                    console.log("typeof：   "+typeof (voteResult.voteCount));
+                }
+                else
+                    console.log("getVoteResult failed.");
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("some error");
+            },
+        });
+    }
+    $(document).ready(function (){
+        console.log("-----------------------------------------")
+        console.log(sessionStorage.getItem("voteData"));
+        getVoteResult();
+        setTimeout("getVoteResult();", 2000);
 
     })
-
-
-
-
-
-
 
 }
 //var intervalID = setInterval(function() {

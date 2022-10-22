@@ -62,6 +62,7 @@
 
         $('#startVoting').click(function (){
             var data = createVoting();
+            sessionStorage.setItem("voteData",data);
             console.log(data);
             url = "../start_vote";
             $.ajax({
