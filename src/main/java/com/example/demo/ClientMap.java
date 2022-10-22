@@ -16,6 +16,7 @@ public class ClientMap {
     private static Map<Object,String> controlClientMap = new HashMap<>();
     private static Map<String,Object> voteData = new HashMap<>();
     private static Map<String,Object> channelData = new HashMap<>();
+    private static Map<String,String> streamingData = new HashMap<>();
     public static String getScenes(String key){
         return OBSScenes.get(key);
     }
@@ -79,6 +80,22 @@ public class ClientMap {
         return true;
     }
 
+    public static boolean addStreamingData(ChannelHandlerContext ctx, String result){
+        String ytAccount = "";
+        for (Map.Entry<String, Object> entry : OBSServerMap.entrySet()) {
+            if(entry.getValue() == ctx){
+                ytAccount = entry.getKey();
+                break;
+            }
+        }
+        if(streamingData.containsKey(ytAccount) == true)
+            return false;
+        else{
+            streamingData.put(ytAccount,result);
+        }
+        return true;
+    }
+
     public static boolean addChannelData(ChannelHandlerContext ctx, ChannelData result){
         String ytAccount = "";
         for (Map.Entry<String, Object> entry : OBSServerMap.entrySet()) {
@@ -131,6 +148,14 @@ public class ClientMap {
 
     public static Map<String, Object> getChannelData() {
         return channelData;
+    }
+
+    public static Map<String, String> getStreamingData() {
+        return streamingData;
+    }
+
+    public static void setStreamingData(Map<String, String> streamingData) {
+        ClientMap.streamingData = streamingData;
     }
 
     public static void setChannelData(Map<String, Object> channelData) {

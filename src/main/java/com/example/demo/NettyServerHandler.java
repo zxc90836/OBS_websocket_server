@@ -55,6 +55,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 ChannelData d = mapper.readValue(cmd,ChannelData.class);
                 ClientMap.addChannelData(ctx,d);
                 break;
+            case "addStreamingData":
+                ClientMap.addStreamingData(ctx,cmd);
             default:
                 ctx.write("我是服務端，格式錯誤，無此服務！");
                 break;
