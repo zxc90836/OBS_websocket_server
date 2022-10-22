@@ -8,19 +8,17 @@ import com.example.demo.repository.LoginRepository;
 import com.example.demo.youtubeAPI.*;
 import com.google.api.services.youtube.model.PlaylistItem;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
+import java.util.*;
 import java.math.BigInteger;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 @Slf4j
@@ -221,6 +219,13 @@ public class LoginService {
             return true;
         }
         return false;
+    }
+    public List<Video> getAllVideoFromDB(String ytAccount){
+        Query query = new Query(Criteria.where("ytAccount").is(ytAccount)).limit(10);
+        List<Video> result = mongoTemplate.find(query, Video.class, VideoCollection);
+        if(result!=null)
+            return result;
+        return null;
     }
     public Video getVideoData(String id){
         log.info("get videos--------------------" + id);

@@ -72,6 +72,30 @@
             });
         });
     }
+    function getStreamSource(){
+        let url = "../getMember?team="+sessionStorage.getItem("controll");
+        $.getJSON(url,function(result){
+            $.each(result,function(index,value) {
+                var insert_member_HTML = "";
+                insert_member_HTML += `
+                <div class="collaborator">
+                    <img src="../picture/people.png" class="channel-icon" alt="">
+                    <div class="info">
+                        <h4 class="name">${value.memberName}</h4>
+                        <span class="${value.remoteControl?"active":""} authority">遠端控制</span>
+                        <span class="${value.dataAnalysis?"active":""} authority">數據分析</span>
+                        <span class="${value.teamManagement?"active":""} authority">團隊管理</span>
+                    </div>
+                    <div id="collaborator1_channelID" class="edit_button_collaborator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>`;
+                $("#collaboratorRoom_body").append(insert_member_HTML);
+            });
+        });
+    }
     //jquery
     $(document).ready(function (){
         $(".page-button").click(function (e) {
@@ -85,6 +109,8 @@
             /*$(".card_show").css("display", "");
             $(".black_background").css("display", "");*/
         });
+        let user = JSON.parse(sessionStorage.getItem("user"));
+        $("#userName").html(user.userName);
         var Key = sessionStorage.getItem("controll");
         //var pending_url = "http://140.121.196.20:55304/OBS_websocket/get_scenes?key="+Key;
         var pending_url= "../OBS_websocket/get_scenes?key="+Key;
@@ -92,6 +118,7 @@
         showSchedule();
         showMember();
 
+        stream_displayBox
         $(".sceneList").html("");
         $.getJSON(pending_url,function(result){
             $.each(result,function(index,value){
@@ -110,6 +137,11 @@
                 //$.get("http://140.121.196.20:55304/OBS_websocket/change_scene?key=4908795&scene=場景");
             });
         });
+        $("#log_out_btn").click(function (){
+            sessionStorage.removeItem("user");
+            sessionStorage.removeItem("control");
+            window.location.href="../html/loginPage.html.html";
+        })
         $("#add_schedule_btn").click(function (){
             let team = sessionStorage.getItem("controll");
             let date = $("#schedule_date").val();

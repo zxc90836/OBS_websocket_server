@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -159,17 +160,22 @@ public class LoginController {
     public String deleteLiveChatMessage(@RequestParam(value = "id", defaultValue = "") String id){
         return service.deleteLiveChatMessage(id);
     }
-
+    @GetMapping("/getAllVideoFromDB")//../getAllVideoFromDB?key=YL471T6LkMA
+    //http://140.121.196.20:55304/Youtube_API/get_myVideos
+    public List<Video> getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
+        return service.getAllVideoFromDB(ytAccount);
+    }
     @GetMapping("/get_video")//../Youtube_API/get_video?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
     public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
         return service.getVideoData(key);
     }
-    @GetMapping("/get_myVideos")//../Youtube_API/get_myVideos
+    @GetMapping("/get_myVideos")//../get_myVideos?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public String getMyVideos(@RequestParam(value = "key", defaultValue = "") String ytAccount){
         return service.getAllVideoData(ytAccount);
     }
+
 
     @GetMapping("/get_comments")//../Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
