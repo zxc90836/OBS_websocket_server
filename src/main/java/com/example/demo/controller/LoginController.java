@@ -166,7 +166,7 @@ public class LoginController {
         return service.getVideoFromDB(videoID);
     }
     @GetMapping("/getAllVideoFromDB")//../getAllVideoFromDB?key=YL471T6LkMA
-    //http://140.121.196.20:55304/Youtube_API/get_myVideos
+    //http://140.121.196.20:55304/getAllVideoFromDB?key=YL471T6LkMA
     public List<Video> getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
         return service.getAllVideoFromDB(ytAccount);
     }
