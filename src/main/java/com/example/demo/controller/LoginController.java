@@ -209,12 +209,19 @@ public class LoginController {
         return mapper.writeValueAsString(ClientMap.getChannelData().get(account));
     }
 
-    @GetMapping("/get_StreamingVideo")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
-    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+//    @GetMapping("/get_StreamingVideo")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+//    //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
+//    public String getStreamingVideo(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
+//        ObjectMapper mapper = new ObjectMapper();
+//        ClientMap.sendMSGToOBSServer(account,"getStreamingVideo " + account);
+//        return mapper.writeValueAsString(ClientMap.getStreamingData().get(account));
+//    }
+    @GetMapping("/getStreamingVideo")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
     public String getStreamingVideo(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
+        //ObjectMapper mapper = new ObjectMapper();
         ClientMap.sendMSGToOBSServer(account,"getStreamingVideo " + account);
-        return mapper.writeValueAsString(ClientMap.getStreamingData().get(account));
+
+        return service.getStreamingURL(account);
     }
     /*
     public static void main(String args[]) throws IOException {

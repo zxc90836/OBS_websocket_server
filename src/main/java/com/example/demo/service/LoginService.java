@@ -1,9 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Schedule;
-import com.example.demo.entity.Team;
-import com.example.demo.entity.User;
-import com.example.demo.entity.MemberPermission;
+import com.example.demo.entity.*;
 import com.example.demo.repository.LoginRepository;
 import com.example.demo.youtubeAPI.*;
 import com.google.api.services.youtube.model.PlaylistItem;
@@ -300,5 +297,22 @@ public class LoginService {
     public String deleteLiveChatMessage(String id){
         log.info("delete LiveChatMessage--------------------");
         return DeleteLiveChatMessage.deleteLiveChatMessage(id);
+    }
+
+    public String getStreamingURL(String ytAccount){
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        if(result == null)
+            return null;
+        else{
+            while (result.isSaveFlag() == false){
+                result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+            }
+        }
+        return result.getYtKey();
     }
 }
