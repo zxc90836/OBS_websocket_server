@@ -306,12 +306,10 @@ public class LoginService {
         update.set("saveFlag", false);
         mongoTemplate.updateFirst(query, update, ExchangeData.class);
         result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-        if(result == null)
-            return null;
-        else{
-            while (result.isSaveFlag() == false){
-                result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-            }
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
         }
         return result.getYtKey();
     }
