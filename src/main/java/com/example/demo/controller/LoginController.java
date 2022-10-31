@@ -111,28 +111,34 @@ public class LoginController {
 
     @GetMapping("/get_streamingChat")//../Youtube_API/get_streamingChat
     //http://140.121.196.20:55304/Youtube_API/get_streamingChat
-    public String getStreamingChat(){
-        return service.getLiveChatMessage();
+    public String getStreamingChat(@RequestParam(value = "key", defaultValue = "") String account){
+        ClientMap.sendMSGToOBSServer(account,"getStreamingChat " + account);
+        return service.getLiveChatMessage(account);
     }
 
     @GetMapping("/get_SC")//../Youtube_API/get_SC
     //http://140.121.196.20:55304/Youtube_API/get_SC
-    public String getSC(){
-        return service.getSCDetail();
+    public String getSC(@RequestParam(value = "key", defaultValue = "") String account){
+        ClientMap.sendMSGToOBSServer(account,"getSCDetails " + account);
+        return service.getSCDetail(account);
     }
 
     @GetMapping("/get_relatedVideo")//../Youtube_API/get_relatedVideo?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_relatedVideo?key=YL471T6LkMA
-    public String getRelatedVideo(@RequestParam(value = "key", defaultValue = "") String key){
-        return service.getRelatedVideo(key);
+    public String getRelatedVideo(@RequestParam(value = "key", defaultValue = "") String account,
+                                  @RequestParam(value = "id", defaultValue = "")String id){
+        ClientMap.sendMSGToOBSServer(account,"getRelatedVideo " + account + "&" + id);
+        return service.getRelatedVideo(account);
     }
 
     @GetMapping("/get_videoHistory")//../Youtube_API/getChannelHistory?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/getChannelHistory?key=YL471T6LkMA
-    public String getVideoHistory(@RequestParam(value = "id", defaultValue = "") String id,
+    public String getVideoHistory(@RequestParam(value = "key", defaultValue = "") String account,
+                                  @RequestParam(value = "id", defaultValue = "") String id,
                                   @RequestParam(value = "start", defaultValue = "") String start,
                                   @RequestParam(value = "end", defaultValue = "") String end){
-        return service.getVideoHistory(id,start,end);
+        ClientMap.sendMSGToOBSServer(account,"getVideoHistory " + account + "&" + id + "&" + start + "&" + end);
+        return service.getVideoHistory(account);
     }
 
     @GetMapping("/get_channelHistory")//../Youtube_API/getChannelHistory?key=YL471T6LkMA
@@ -144,32 +150,42 @@ public class LoginController {
 
     @PostMapping(value = "/add_LiveChatModerators")//../Youtube_API/addLiveChatModerators?id=
     //http://140.121.196.20:55304/Youtube_API/addLiveChatModerators?id=
-    public String addLiveChatModerators(@RequestParam(value = "id", defaultValue = "") String id){
-        return service.addLiveChatModerators(id);
+    public String addLiveChatModerators(@RequestParam(value = "id", defaultValue = "") String id,
+                                        @RequestParam(value = "key", defaultValue = "") String account){
+        ClientMap.sendMSGToOBSServer(account,"addLiveChatModerators " + id);
+        return service.addLiveChatModerators(account);
     }
 
     @PostMapping(value = "/ban_LiveChatUser")//../Youtube_API/banLiveChatUser?id=
     //http://140.121.196.20:55304/Youtube_API/banLiveChatUser?id=
     public String banLiveChatUser(@RequestParam(value = "id", defaultValue = "") String id,
-                                  @RequestParam(value = "time", defaultValue = "") BigInteger time){
+                                  @RequestParam(value = "time", defaultValue = "") BigInteger time,
+                                  @RequestParam(value = "key", defaultValue = "") String account){
+        ClientMap.sendMSGToOBSServer(account,"banLiveChatUser " + id + "&" + time);
         return service.banLiveChatUser(id,time);
     }
 
     @PostMapping(value = "/delete_LiveChatMessage")//../Youtube_API/deleteLiveChatMessage?id=
     //http://140.121.196.20:55304/Youtube_API/deleteLiveChatMessage?id=
-    public String deleteLiveChatMessage(@RequestParam(value = "id", defaultValue = "") String id){
+    public String deleteLiveChatMessage(@RequestParam(value = "id", defaultValue = "") String id,
+                                        @RequestParam(value = "key", defaultValue = "") String account){
+        ClientMap.sendMSGToOBSServer(account,"deleteLiveChatMessage " + id);
         return service.deleteLiveChatMessage(id);
     }
     @GetMapping("/getVideoFromDB")//../getVideoFromDB?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
-    public Video getVideoFromDB(@RequestParam(value = "key", defaultValue = "") String videoID){
+    public String getVideoFromDB(@RequestParam(value = "id", defaultValue = "") String videoID,
+                                @RequestParam(value = "key", defaultValue = "") String account){
+        ClientMap.sendMSGToOBSServer(account,"getVideoFromDB " + account + "&" + videoID);
         return service.getVideoFromDB(videoID);
     }
     @GetMapping("/getAllVideoFromDB")//../getAllVideoFromDB?key=YL471T6LkMA
     //http://140.121.196.20:55304/getAllVideoFromDB?key=YL471T6LkMA
-    public List<Video> getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
+    public String getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
+        ClientMap.sendMSGToOBSServer(ytAccount,"getAllVideoFromDB " + ytAccount);
         return service.getAllVideoFromDB(ytAccount);
     }
+    /*
     @GetMapping("/get_video")//../Youtube_API/get_video?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
     public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
@@ -180,12 +196,14 @@ public class LoginController {
     public String getMyVideos(@RequestParam(value = "key", defaultValue = "") String ytAccount){
         return service.getAllVideoData(ytAccount);
     }
-
+    */
 
     @GetMapping("/get_comments")//../Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
-    public String getComments(@RequestParam(value = "key", defaultValue = "") String key){
-        return service.getComment(key);
+    public String getComments(@RequestParam(value = "id", defaultValue = "") String id,
+                              @RequestParam(value = "key", defaultValue = "") String ytAccount){
+        ClientMap.sendMSGToOBSServer(ytAccount,"getComments " + ytAccount + "&" + id);
+        return service.getComment(ytAccount);
     }
     @PostMapping(value = "/start_vote") //../start_vote
     public String startVote(@RequestBody VoteData voteData) throws IOException {
@@ -199,14 +217,14 @@ public class LoginController {
     public String getVoteResult(@RequestBody VoteData voteData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData " + voteData.getPollAccount());
-        return mapper.writeValueAsString(ClientMap.getVoteData().get(voteData.getPollAccount()));
+        return service.getVoteData(voteData.getPollAccount());
     }
     @GetMapping("/get_channelData")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
     //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
     public String getChannelData(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ClientMap.sendMSGToOBSServer(account,"getChannelData " + account);
-        return mapper.writeValueAsString(ClientMap.getChannelData().get(account));
+        return service.getChannelData(account);
     }
 
 //    @GetMapping("/get_StreamingVideo")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
@@ -216,7 +234,7 @@ public class LoginController {
 //        ClientMap.sendMSGToOBSServer(account,"getStreamingVideo " + account);
 //        return mapper.writeValueAsString(ClientMap.getStreamingData().get(account));
 //    }
-    @GetMapping("/getStreamingVideo")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
+    @GetMapping("/getStreamingVideo")//http://127.0.0.1:55304/getStreamingVideo?key=帳號"
     public String getStreamingVideo(@RequestParam(value = "key", defaultValue = "") String account) throws IOException {
         //ObjectMapper mapper = new ObjectMapper();
         ClientMap.sendMSGToOBSServer(account,"getStreamingVideo " + account);

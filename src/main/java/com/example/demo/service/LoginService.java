@@ -217,19 +217,31 @@ public class LoginService {
         }
         return false;
     }
-    public Video getVideoFromDB(String videoID){
-        Query query = new Query(Criteria.where("_id").is(videoID));
-        Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
-        if(result!=null)
-            return result;
-        return null;
+    public String getVideoFromDB(String ytAccount){
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        }
+        return result.getVideoData();
     }
-    public List<Video> getAllVideoFromDB(String ytAccount){
-        Query query = new Query(Criteria.where("ytAccount").is(ytAccount)).limit(10);
-        List<Video> result = mongoTemplate.find(query, Video.class, VideoCollection);
-        if(result!=null)
-            return result;
-        return null;
+    public String getAllVideoFromDB(String ytAccount){
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        }
+        return result.getAllVideoData();
     }
     public Video getVideoData(String id){
         log.info("get videos--------------------" + id);
@@ -262,25 +274,77 @@ public class LoginService {
         }
         return myVideos.toString();
     }
-    public String getComment(String id){
-        log.info("get comments--------------------" + id);
-        return GetComment.getComment(id).toString();
+    public String getComment(String ytAccount){
+        log.info("get comments--------------------");
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        }
+        return result.getCommentData();
     }
-    public String getLiveChatMessage(){
+    public String getLiveChatMessage(String ytAccount){
         log.info("get liveChatMessage--------------------");
-        return GetLiveChatOnce.getLiveChatOnce();
+
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        }
+        return result.getStreamingChat();
     }
-    public String getSCDetail(){
+    public String getSCDetail(String ytAccount){
         log.info("get SCDetail--------------------");
-        return GetSCDetails.getSCDetails();
+
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        }
+        return result.getSCDetail();
     }
-    public String getRelatedVideo(String id){
+    public String getRelatedVideo(String ytAccount){
         log.info("get relatedVideo--------------------");
-        return GetRelatedVideo.getRelatedVideo(id);
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        }
+        return result.getRelatedVideo();
     }
-    public String getVideoHistory(String id,String start,String end){
+    public String getVideoHistory(String ytAccount){
         log.info("get videoHistory--------------------");
-        return GetVideoHistoryInfo.getVideoHistoryInfo(id,start,end);
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        }
+        return result.getVideoHistoryInfo();
     }
     public String getChannelHistory(String start,String end){
         log.info("get channelHistory--------------------");
@@ -288,17 +352,16 @@ public class LoginService {
     }
     public String addLiveChatModerators(String id){
         log.info("get liveChatModerators--------------------");
-        return AddLiveChatModerators.addLiveChatModerators(id);
+        return "done";
     }
     public String banLiveChatUser(String id, BigInteger time){
         log.info("ban LiveChatUser--------------------");
-        return BanLiveChatUser.banLiveChatUser(id,time);
+        return "done";
     }
     public String deleteLiveChatMessage(String id){
         log.info("delete LiveChatMessage--------------------");
-        return DeleteLiveChatMessage.deleteLiveChatMessage(id);
+        return "done";
     }
-
     public String getStreamingURL(String ytAccount){
         Query query = new Query(Criteria.where("teamName").is(ytAccount));
         ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
@@ -312,5 +375,33 @@ public class LoginService {
 
         }
         return result.getYtKey();
+    }
+    public String getVoteData(String ytAccount){
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        }
+        return result.getVoteResult();
+    }
+    public String getChannelData(String ytAccount){
+        Query query = new Query(Criteria.where("teamName").is(ytAccount));
+        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+        Update update = new Update();
+        update.set("saveFlag", false);
+        mongoTemplate.updateFirst(query, update, ExchangeData.class);
+        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        while (result == null || result.isSaveFlag() == false){
+            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
+
+        }
+        return result.getChannelData();
     }
 }
