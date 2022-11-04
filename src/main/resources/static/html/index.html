@@ -56,8 +56,35 @@
 
     <div class="main_container">
         <!--                                                          !!!!注意這段，如果抓的到影片代碼即可抓直播          -->
-        <iframe class="stream_displayBox" height="800" src="https://www.youtube.com/embed/JpJM9GCoUX4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+        <div class="stream_displayBox">
+            <iframe height="82%" width="100% - 340px" src="https://www.youtube.com/embed/JpJM9GCoUX4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="row " style="width: 100%;height: 10%;margin-left: 0px">
+                <div class="col-3">
+                    <div class="card stream_data viewer">
+                        <p>現在觀看人數</p>
+                        <span>4315</span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card stream_data viewCount">
+                        <p>點讚數</p>
+                        <span>8135</span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card stream_data subscription">
+                        <p>分鐘留言數</p>
+                        <span>800</span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card stream_data income">
+                        <p>營利</p>
+                        <span>451.63</span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row p-1 stream_toolBox bg-light">
             <div class="p-3 text-dark">
                 <h1>控制OBS頁面</h1>
@@ -322,7 +349,7 @@
                                     <h4 class="content">工商直播前會議</h4>
                                     <span class="time">兩天後 15:00~17:00</span>
                                 </div>
-                                <div id="bulletinBoard-1" class="edit_button_collaborator">
+                                <div id="bulletinBoard-1" class="calendar_add_btn">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -333,7 +360,7 @@
                                     <h4 class="content">直播-XXX工商</h4>
                                     <span class="time">兩天後 19:00~21:00</span>
                                 </div>
-                                <div id="bulletinBoard-2" class="edit_button_collaborator">
+                                <div id="bulletinBoard-2" class="calendar_add_btn">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -344,7 +371,7 @@
                                     <h4 class="content">直播後檢討</h4>
                                     <span class="time">兩天後 22:00~23:00</span>
                                 </div>
-                                <div id="bulletinBoard-3" class="edit_button_collaborator">
+                                <div id="bulletinBoard-3" class="calendar_add_btn">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -355,7 +382,7 @@
                                     <h4 class="content">周邊合作廠商會議</h4>
                                     <span class="time">五天後 15:00~17:00</span>
                                 </div>
-                                <div id="bulletinBoard-4" class="edit_button_collaborator">
+                                <div id="bulletinBoard-4" class="calendar_add_btn">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -391,8 +418,6 @@
         <p>踢出協作者</p>
     </div>
     <div class="collaborator-calendar-list " style="display: none">
-        <p>新增</p>
-        <p>修改</p>
         <p>刪除</p>
     </div>
     <div class="card center" style="display: none">

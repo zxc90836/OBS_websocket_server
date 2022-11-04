@@ -55,7 +55,7 @@
             console.log(xPos, yPos);
             $(".white_background").css("display", "");
             let count = setInterval(function() {
-                $('.collaborator-manager-list').css("left", elm.offset().left +80);
+                $('.collaborator-manager-list').css("left", xPos-100);
                 $('.collaborator-manager-list').css("top", elm.offset().top + 35);
                 $('.collaborator-manager-list').css("display", "");
                 clearTimeout(count);
@@ -71,8 +71,8 @@
             console.log(xPos, yPos);
             $(".white_background").css("display", "");
             let count = setInterval(function() {
-                $('.collaborator-calendar-list').css("left", elm.offset().left +20);
-                $('.collaborator-calendar-list').css("top", elm.offset().top + 80);
+                $('.collaborator-calendar-list').css("left", xPos - 100);
+                $('.collaborator-calendar-list').css("top", elm.offset().top + 40);
                 $('.collaborator-calendar-list').css("display", "");
                 clearTimeout(count);
             }, 10);
