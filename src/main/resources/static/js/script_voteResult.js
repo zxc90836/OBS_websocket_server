@@ -32,8 +32,10 @@
     }
     function getVoteResultLoop(){
         let url = "../get_voteResult?key="+sessionStorage.getItem("controll");
+        let info;
+        let flag = false;
         $.get(url, function(result){
-            let info = JSON.parse(result);
+            info = JSON.parse(result);
             let allVoteCount = 0;
             let voteCount = info.voteCount
             console.log(info)
@@ -51,14 +53,14 @@
                     </div>`
                 $("#resultValueTable").append(resultValue);
             }
-            console.log(info.endFlag)
-            return info.endFlag;
+            flag = info.endFlag;
         });
+        return flag;
     }
     $(document).ready(async function () {
         console.log("-----------------------------------------")
-        console.log(sessionStorage.getItem("voteData"));
-        var flag = getVoteResult();
+        console.log(getVoteResult());
+        let flag = false;
         console.log(flag);
         console.log(typeof (flag))
         while (flag != true) {
@@ -68,7 +70,7 @@
                     flag = getVoteResultLoop();
                     console.log(flag)
                     console.log(flag != true)
-                }, 5000);
+                }, 4000);
             })
         }
     })
