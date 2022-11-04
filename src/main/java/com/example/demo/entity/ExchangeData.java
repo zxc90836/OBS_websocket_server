@@ -1,13 +1,15 @@
 package com.example.demo.entity;
 
 
+import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "DataExchange")
+@ToString
 public class ExchangeData {
     private String teamName = "00000@gmail.com";
     private String ytKey = "";
-    private String StreamingChat = "";
+    private String streamingChat = "";
     private String SCDetail = "";
     private String relatedVideo = "";
     private String videoHistoryInfo = "";
@@ -43,11 +45,11 @@ public class ExchangeData {
     }
 
     public String getStreamingChat() {
-        return StreamingChat;
+        return streamingChat;
     }
 
     public void setStreamingChat(String streamingChat) {
-        StreamingChat = streamingChat;
+        streamingChat = streamingChat;
     }
 
     public String getSCDetail() {

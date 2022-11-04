@@ -174,15 +174,12 @@ public class LoginController {
     }
     @GetMapping("/getVideoFromDB")//../getVideoFromDB?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
-    public String getVideoFromDB(@RequestParam(value = "id", defaultValue = "") String videoID,
-                                @RequestParam(value = "key", defaultValue = "") String account){
-        ClientMap.sendMSGToOBSServer(account,"getVideoFromDB " + account + "&" + videoID);
-        return service.getVideoFromDB(videoID);
+    public Video getVideoFromDB(@RequestParam(value = "key", defaultValue = "") String videoKey){
+        return service.getVideoFromDB(videoKey);
     }
     @GetMapping("/getAllVideoFromDB")//../getAllVideoFromDB?key=YL471T6LkMA
     //http://140.121.196.20:55304/getAllVideoFromDB?key=YL471T6LkMA
-    public String getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
-        ClientMap.sendMSGToOBSServer(ytAccount,"getAllVideoFromDB " + ytAccount);
+    public List<Video> getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
         return service.getAllVideoFromDB(ytAccount);
     }
     /*
@@ -206,18 +203,18 @@ public class LoginController {
         return service.getComment(ytAccount);
     }
     @PostMapping(value = "/start_vote") //../start_vote
-    public String startVote(@RequestBody VoteData voteData) throws IOException {
+    public boolean startVote(@RequestBody VoteData voteData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
         ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"startVote " + mapper.writeValueAsString(voteData));
-        return "success";
+        return true;
     }
-    @PostMapping("/get_voteResult")//../OBS_websocket/get_voteResult"
+    @GetMapping("/get_voteResult")//../get_voteResult?key=4908795
     //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795
-    public String getVoteResult(@RequestBody VoteData voteData) throws IOException {
+    public String getVoteResult(@RequestParam(value = "key", defaultValue = "") String ytAccount) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        ClientMap.sendMSGToOBSServer(voteData.getPollAccount(),"getVoteData " + voteData.getPollAccount());
-        return service.getVoteData(voteData.getPollAccount());
+        ClientMap.sendMSGToOBSServer(ytAccount,"getVoteData " + ytAccount);
+        return service.getVoteData(ytAccount);
     }
     @GetMapping("/get_channelData")//http://127.0.0.1:55304/OBS_websocket/get_voteResult"
     //http://140.121.196.20:55304/OBS_websocket/get_scenes?key=4908795

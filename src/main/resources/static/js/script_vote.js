@@ -59,7 +59,6 @@
 
     $(document).ready(function (){
         console.log($('#votingQuestion').val())
-
         $('#startVoting').click(function (){
             var data = createVoting();
             sessionStorage.setItem("voteData",data);

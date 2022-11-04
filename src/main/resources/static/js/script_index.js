@@ -73,10 +73,50 @@
         });
     }
     function getStreamSource(){
-        let url = "../get_StreamingVideo?key="+sessionStorage.getItem("controll");
-        $.getJSON(url,function(result){
-            console.log("https://www.youtube.com/embed/"+result);
+        let url = "../getStreamingVideo?key="+sessionStorage.getItem("controll");
+        console.log("getStreamSource"+url);
+        $(".stream_displayBox").attr("src","");
+        $.get(url, function(result){
+            console.log(result);
+            console.log("https://www.youtube.com/embed/");
             $(".stream_displayBox").attr("src","https://www.youtube.com/embed/"+result);
+        });
+
+    }
+    function getScenes(){
+        var Key = sessionStorage.getItem("controll");
+        //var pending_url = "http://140.121.196.20:55304/OBS_websocket/get_scenes?key="+Key;
+        var pending_url= "../OBS_websocket/get_scenes?key="+Key;
+        $(".sceneList").html("");
+        $.getJSON(pending_url,function(result){
+            $.each(result,function(index,value){
+                console.log(value);
+                var insert_pending_HTML = "";
+                insert_pending_HTML +=
+                    '<a id="16" href="#" class="list-group-item list-group-item-action changeSceneButton">'+value+'</a>';
+
+                $(".sceneList").append(insert_pending_HTML);
+            });
+            $(".changeSceneButton").click(function (e) {
+                //var change_url = "http://140.121.196.20:55304/OBS_websocket/change_scene?key=";
+                let change_url = "../OBS_websocket/change_scene?key=";
+                $.get(change_url+ Key +"&scene="+e.target.text);
+                console.log(change_url+ Key +"&scene="+e.target.text);
+                //$.get("http://140.121.196.20:55304/OBS_websocket/change_scene?key=4908795&scene=場景");
+            });
+        });
+    }
+    function getTeamInfo(){
+        let url = "../get_channelData?key="+sessionStorage.getItem("controll");
+        console.log("get_channelData"+url);
+        $.get(url, function(result){
+            let info = JSON.parse(result);
+            console.log(info);
+            console.log(info.videoCount);
+            $("#videoCount").html(info.videoCount);
+            $("#viewCount").html(info.viewCount);
+            $("#subscriberCount").html(info.subscriberCount);
+            $("#estimatedRevenue").html(info.estimatedRevenue);
         });
     }
     //jquery
@@ -101,25 +141,8 @@
         showSchedule();
         showMember();
         getStreamSource();
-        setTimeout("getStreamSource()", 2000);
-        $(".sceneList").html("");
-        $.getJSON(pending_url,function(result){
-            $.each(result,function(index,value){
-                console.log(value);
-                var insert_pending_HTML = "";
-                insert_pending_HTML +=
-                    '<a id="16" href="#" class="list-group-item list-group-item-action changeSceneButton">'+value+'</a>';
-
-                $(".sceneList").append(insert_pending_HTML);
-            });
-            $(".changeSceneButton").click(function (e) {
-                //var change_url = "http://140.121.196.20:55304/OBS_websocket/change_scene?key=";
-                let change_url = "../OBS_websocket/change_scene?key=";
-                $.get(change_url+ Key +"&scene="+e.target.text);
-                console.log(change_url+ Key +"&scene="+e.target.text);
-                //$.get("http://140.121.196.20:55304/OBS_websocket/change_scene?key=4908795&scene=場景");
-            });
-        });
+        getScenes();
+        getTeamInfo();
         $("#log_out_btn").click(function (){
             sessionStorage.removeItem("user");
             sessionStorage.removeItem("control");
@@ -199,6 +222,13 @@
                 },
             });
         })
+        $("#page1").click(function (){
+            getStreamSource();
+            getScenes();
+        })//團隊控制葉面
+        $("#page3").click(function (){
+            getTeamInfo();
+        })//數據展示葉面
     });
 
 }

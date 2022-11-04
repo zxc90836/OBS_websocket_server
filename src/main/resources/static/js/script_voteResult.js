@@ -1,35 +1,75 @@
 {
     function getVoteResult(){
-        let url = "../get_voteResult"
-        var data = sessionStorage.getItem("voteData");
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            dataType: 'json',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            success: function(data){
-                if(data!=null){
-                    let voteResult = JSON.parse(data);
-                    console.log("voteResult：   "+voteResult);
-                    console.log("voteCount：   "+voteResult.voteCount);
-                    console.log("typeof：   "+typeof (voteResult.voteCount));
-                }
-                else
-                    console.log("getVoteResult failed.");
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("some error");
-            },
+        let url = "../get_voteResult?key="+sessionStorage.getItem("controll");
+        $.get(url, function(result){
+            let info = JSON.parse(result);
+            $("#voteTitle").html(info.question);
+            $("#optionsTable").html("");
+            $("#resultValueTable").html("");
+            let allVoteCount = 0;
+            let voteCount = info.voteCount
+            for (const key in voteCount) {
+                allVoteCount += voteCount[key];
+                console.log(key + "  "+voteCount[key]);
+            }
+            for (const key in voteCount) {
+                let option = "";
+                let resultValue = "";
+                option +=`
+                    <div class=" mt-3" style="height: 30px">
+                        ${key}
+                    </div>`
+                let num = Number(voteCount[key]/allVoteCount);
+                resultValue = `
+                    <div class="progress mt-3" style="height: 30px">
+                        <div class="progress-bar" style="width:${num*100}%;height:30px">${num*100}%</div>
+                    </div>`
+                $("#optionsTable").append(option);
+                $("#resultValueTable").append(resultValue);
+            }
+            return info.endFlag;
         });
     }
-    $(document).ready(function (){
+    function getVoteResultLoop(){
+        let url = "../get_voteResult?key="+sessionStorage.getItem("controll");
+        $.get(url, function(result){
+            let info = JSON.parse(result);
+            let allVoteCount = 0;
+            let voteCount = info.voteCount
+            console.log(info)
+            $("#resultValueTable").html("");
+            for (const key in voteCount) {
+                allVoteCount += voteCount[key];
+                console.log(key + "  "+voteCount[key]);
+            }
+            for (const key in voteCount) {
+                let resultValue = "";
+                let num = Number(voteCount[key]/allVoteCount);
+                resultValue = `
+                    <div class="progress mt-3" style="height: 30px">
+                        <div class="progress-bar" style="width:${num*100}%;height:30px">${num*100}%</div>
+                    </div>`
+                $("#resultValueTable").append(resultValue);
+            }
+            console.log(info.endFlag)
+            return info.endFlag;
+        });
+    }
+    $(document).ready(async function () {
         console.log("-----------------------------------------")
         console.log(sessionStorage.getItem("voteData"));
-        getVoteResult();
-        setTimeout("getVoteResult();", 2000);
+        var flag = getVoteResult();
+        console.log(flag);
+        console.log(typeof (flag))
+        while (flag != true) {
+            await new Promise((resolve, reject) => {//進入等待
+                setTimeout(function () {
+                    resolve();//繼續往下執行
+                    flag = getVoteResultLoop();
+                    console.log(flag)
+                    console.log(flag != true)
+                }, 5000);
+            })
+        }
     })
 }

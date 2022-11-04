@@ -217,31 +217,19 @@ public class LoginService {
         }
         return false;
     }
-    public String getVideoFromDB(String ytAccount){
-        Query query = new Query(Criteria.where("teamName").is(ytAccount));
-        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-        Update update = new Update();
-        update.set("saveFlag", false);
-        mongoTemplate.updateFirst(query, update, ExchangeData.class);
-        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-
-        while (result == null || result.isSaveFlag() == false){
-            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-        }
-        return result.getVideoData();
+    public Video getVideoFromDB(String videoID){
+        Query query = new Query(Criteria.where("_id").is(videoID));
+        Video result = mongoTemplate.findOne(query, Video.class, VideoCollection);
+        if(result!=null)
+            return result;
+        return null;
     }
-    public String getAllVideoFromDB(String ytAccount){
-        Query query = new Query(Criteria.where("teamName").is(ytAccount));
-        ExchangeData result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-        Update update = new Update();
-        update.set("saveFlag", false);
-        mongoTemplate.updateFirst(query, update, ExchangeData.class);
-        result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-
-        while (result == null || result.isSaveFlag() == false){
-            result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
-        }
-        return result.getAllVideoData();
+    public List<Video> getAllVideoFromDB(String ytAccount){
+        Query query = new Query(Criteria.where("ytAccount").is(ytAccount)).limit(10);
+        List<Video> result = mongoTemplate.find(query, Video.class, VideoCollection);
+        if(result!=null)
+            return result;
+        return null;
     }
     public Video getVideoData(String id){
         log.info("get videos--------------------" + id);
@@ -301,6 +289,7 @@ public class LoginService {
         while (result == null || result.isSaveFlag() == false){
             result = mongoTemplate.findOne(query, ExchangeData.class, "DataExchange");
         }
+        log.info("StreamingChat：      " + result.toString());
         return result.getStreamingChat();
     }
     public String getSCDetail(String ytAccount){
