@@ -5,6 +5,9 @@
         voteResultPage = window.open('votePage.html', 'open', 'height=500, width=700');
         //voteResultPage = window.open('index.html', 'open', 'height=500, width=500');
     }
+    function deleteSchedule(){
+
+    }
     function showSchedule(){
         $("#schedule_container").html("");
         let url = "../getSchedule?team="+sessionStorage.getItem("controll");
@@ -18,7 +21,7 @@
                             <h4 class="content">${value.describe}</h4>
                             <span class="time">${value.date}   ${value.startTime}~${value.endTime}</span>
                         </div>
-                        <div id="bulletinBoard-1" class="edit_button_collaborator">
+                        <div id="bulletinBoard-${index}" class="calendar_add_btn">
                             <span></span>
                             <span></span>
                             <span></span>
@@ -26,6 +29,9 @@
                     </div>
                 `;
                 $("#schedule_container").append(insert_schedule_HTML);
+                $("#bulletinBoard-"+index).click(function (){
+
+                })
             });
         });
     }
@@ -79,7 +85,7 @@
         $.get(url, function(result){
             console.log(result);
             console.log("https://www.youtube.com/embed/");
-            $(".stream_displayBox").attr("src","https://www.youtube.com/embed/"+result);
+            $("#stream_displayBox").attr("src","https://www.youtube.com/embed/"+result);
         });
 
     }
