@@ -191,6 +191,7 @@ public class LoginController {
     @GetMapping("/get_myVideos")//../get_myVideos?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
     public String getMyVideos(@RequestParam(value = "key", defaultValue = "") String ytAccount){
+        ClientMap.sendMSGToOBSServer(ytAccount,"getAllVideoFromDB " + ytAccount);
         return service.getAllVideoData(ytAccount);
     }
 

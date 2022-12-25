@@ -225,7 +225,7 @@ public class LoginService {
         return null;
     }
     public List<Video> getAllVideoFromDB(String ytAccount){
-        Query query = new Query(Criteria.where("ytAccount").is(ytAccount)).limit(10);
+        Query query = new Query(Criteria.where("ytAccount").is(ytAccount));
         List<Video> result = mongoTemplate.find(query, Video.class, VideoCollection);
         if(result!=null)
             return result;
@@ -244,6 +244,7 @@ public class LoginService {
         return null;
     }
     public String getAllVideoData(String ytAccount){
+
         log.info("get all my videos--------------------");
         List<PlaylistItem> myVideos = GetAllVideos.getAllVideos();
 
