@@ -182,7 +182,7 @@ public class LoginController {
     public List<Video> getAllVideoFromDB(@RequestParam(value = "key", defaultValue = "") String ytAccount){
         return service.getAllVideoFromDB(ytAccount);
     }
-    /*
+
     @GetMapping("/get_video")//../Youtube_API/get_video?key=YL471T6LkMA
     //http://140.121.196.20:55304/Youtube_API/get_video?key=YL471T6LkMA
     public Video getVideo(@RequestParam(value = "key", defaultValue = "") String key){
@@ -193,7 +193,7 @@ public class LoginController {
     public String getMyVideos(@RequestParam(value = "key", defaultValue = "") String ytAccount){
         return service.getAllVideoData(ytAccount);
     }
-    */
+
 
     @GetMapping("/get_comments")//../Youtube_API/get_myVideos
     //http://140.121.196.20:55304/Youtube_API/get_myVideos
